@@ -19,7 +19,7 @@ services:
     restart: always
     build: .
     ports:
-      - 9000-9010:9092
+      - 9001:9092
     depends_on:
       - mysql
     environment:

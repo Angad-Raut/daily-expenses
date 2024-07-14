@@ -1,4 +1,4 @@
-var REST_HOST="http://localhost:9092";
+var REST_HOST="http://localhost:9001";
 $("#logoutId").click(function(){
     $.ajax({
         type : "GET",

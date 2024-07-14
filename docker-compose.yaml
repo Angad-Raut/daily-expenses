@@ -1,7 +1,7 @@
 version: '1.0'
 services:
   mysql:
-    container_name: mysqldb
+    container_name: mysqlDB
     image: mysql
     volumes:
       - mysql-data:/var/lib/mysql  # Volume configuration for MySQL data
@@ -23,7 +23,7 @@ services:
     depends_on:
       - mysql
     environment:
-      MYSQL_HOST: mysqldb
+      MYSQL_HOST: mysqlDB
       MYSQL_USER: root
       MYSQL_PASSWORD: angad@db
       MYSQL_PORT: 3306

@@ -1,0 +1,39 @@
+version: '1.0'
+services:
+  mysql:
+    container_name: mysqldb
+    image: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql  # Volume configuration for MySQL data
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: daily-expenses
+      MYSQL_ROOT_PASSWORD: angad@db
+    networks:
+      - daily-expenses-network
+
+  my-info-app:
+    #container_name: k8s-mysql-demo-container
+    image: daily-expenses
+    restart: always
+    build: .
+    ports:
+      - 9000-9010:9092
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysqldb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: angad@db
+      MYSQL_PORT: 3306
+    networks:
+      - daily-expenses-network
+
+networks:
+  daily-expenses-network:
+    driver: bridge
+
+volumes:
+  mysql-data:  # Define a named volume for MySQL data persistence
+

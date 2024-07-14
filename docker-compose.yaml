@@ -13,7 +13,7 @@ services:
     networks:
       - daily-expenses-network
 
-  my-info-app:
+  daily-expenses-app:
     #container_name: k8s-mysql-demo-container
     image: daily-expenses
     restart: always

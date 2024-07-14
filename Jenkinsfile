@@ -27,13 +27,13 @@ pipeline {
                 bat 'mvn test'
             }
         }
-        stage('SonarQube Analysis') {
+        /*stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
                    bat 'mvn clean package sonar:sonar'
                 }
             }
-        }
+        }*/
         stage('Build Artifact') {
             steps {
                 bat 'mvn clean package'

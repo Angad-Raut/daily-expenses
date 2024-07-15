@@ -25,8 +25,8 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public byte[] generateReport(DateRangeDto dto) throws ParseException {
         byte[] byteData = null;
-        Date startDate = Constants.getISODate(dto.getStartDate());
-        Date endDate = Constants.getISODate(dto.getEndDate());
+        Date startDate = Constants.getISOStartDate(dto.getStartDate());
+        Date endDate = Constants.getISOEndDate(dto.getEndDate());
         AtomicInteger index = new AtomicInteger(0);
         List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(startDate,endDate);
         List<ViewReportDto> reportDataList = fetchList!=null && !fetchList.isEmpty()?fetchList.stream()

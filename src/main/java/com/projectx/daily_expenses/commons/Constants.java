@@ -59,8 +59,20 @@ public final class Constants {
     private static Date localDateTimeToDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
-    public static Date getISODate(String startDate) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat(ISO_DATE_FORMAT);
-        return format.parse(startDate);
+    public static Date getISOStartDate(String startDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat(VIEW_DATE_FORMAT);
+        Date beforeDate = format.parse(startDate);
+        SimpleDateFormat ISOFormat = new SimpleDateFormat(ISO_DATE_FORMAT);
+        String convertedDate = ISOFormat.format(beforeDate);
+        Date finalDate = ISOFormat.parse(convertedDate);
+        return localDateTimeToDate(dateToLocalDateTime(finalDate).with(LocalTime.MIN));
+    }
+    public static Date getISOEndDate(String endDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat(VIEW_DATE_FORMAT);
+        Date beforeDate = format.parse(endDate);
+        SimpleDateFormat ISOFormat = new SimpleDateFormat(ISO_DATE_FORMAT);
+        String convertedDate = ISOFormat.format(beforeDate);
+        Date finalDate = ISOFormat.parse(convertedDate);
+        return localDateTimeToDate(dateToLocalDateTime(finalDate).with(LocalTime.MAX));
     }
 }

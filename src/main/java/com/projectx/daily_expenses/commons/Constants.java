@@ -2,6 +2,7 @@ package com.projectx.daily_expenses.commons;
 
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -58,5 +59,8 @@ public final class Constants {
     private static Date localDateTimeToDate(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
-
+    public static Date getISODate(String startDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat(ISO_DATE_FORMAT);
+        return format.parse(startDate);
+    }
 }

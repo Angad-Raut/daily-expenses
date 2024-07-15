@@ -31,7 +31,7 @@ public interface ExpensesRepository extends JpaRepository<ExpensesDetails,Long> 
 
     @Query(value = "select * from expenses_details expense "
             +"where inserted_time between :startDate and :endDate",nativeQuery = true)
-    List<ExpensesDetails> getMonthAllExpenses(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
+    List<ExpensesDetails> getAllExpensesWithDates(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
 
     @Query(value = "select * from expenses_details expense ",nativeQuery = true)
     List<ExpensesDetails> getAllExpenses();

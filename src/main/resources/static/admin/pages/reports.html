@@ -7,6 +7,13 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../../admin/css/commonPlugins.css">
+    <style>
+    .required-field::after {
+	  content: "*";
+	  color: red;
+	  margin-left:2px
+   }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -131,6 +138,7 @@
             <!-- Small boxes (Stat box) -->
             <div class="box box-default">
                 <div class="box-header with-border">
+                    <h6 class="box-title"><b>Reports</b></h6>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -139,7 +147,45 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-
+                        <div class="col-md-2">
+                            <label><b><span class="required-field"></span>From Date : </b></label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date" data-provide="datepicker" id="from_date_txt">
+                                <input type="text" class="form-control" id="start_date" placeholder="1 January 2024">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label><b><span class="required-field"></span>To Date : </b></label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date" data-provide="datepicker" id="to_date_txt">
+                                <input type="text" class="form-control" id="end_date" placeholder="1 January 2024">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary btn-sm" id="search_txt"><b>Search</b></button>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="reportTableId" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Sr.No</th>
+                                    <th>Expense Date</th>
+                                    <th>Total Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,5 +244,8 @@
 <script src="../../assets/plugins/loading/loadingoverlay.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../assets/dist/js/demo.js"></script>
+<script src="../../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../admin/js/reports.js"></script>
 </body>
 </html>

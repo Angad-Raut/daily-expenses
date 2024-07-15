@@ -7,6 +7,13 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../../admin/css/commonPlugins.css">
+    <style>
+    .required-field::after {
+	  content: "*";
+	  color: red;
+	  margin-left:2px
+   }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -140,27 +147,6 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-2">
-                            <label><b><span class="required-field"></span>From Date : </b></label>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control">
-                                <option value="">Select</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label><b><span class="required-field"></span>To Date : </b></label>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-control">
-                                <option value="">Select</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary btn-sm"><b>Search</b></button>
-                        </div>
-                    </div><br>
-                    <div class="row">
                         <div class="col-md-12">
                             <table id="expenseDetailsTableId" class="table table-bordered table-striped">
                                 <thead>
@@ -178,48 +164,31 @@
             </div>
             <!-- /Small boxes (Stat box) -->
             <!-- modal start -->
-            <div class="modal fade" id="expense-modal">
+            <div class="modal fade" id="viewItemModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"><b>Add Item</b></h4>
+                            <h4 class="modal-title"><b>View Expense Items</b></h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="item_name"><b><span class="required-field"></span>Item Name</b></label>
+                                <div class="col-md-12">
+                                    <table id="viewExpenseItemsTableId" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Item Name</th>
+                                            <th>Item Price</th>
+                                            <th>Payment Mode</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="hidden" class="form-control" id="recordId">
-                                    <input type="text" class="form-control" id="item_name" placeholder="Enter item name" required="required">
-                                </div>
-                                <div class="col-md-3"></div>
-                            </div><br>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="item_price"><b><span class="required-field"></span>Item Price</b></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="item_price" placeholder="Enter item price" required="required">
-                                </div>
-                                <div class="col-md-3"></div>
-                            </div><br>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="payment_mode"><b><span class="required-field"></span>Payment Mode</b></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="payment_mode" placeholder="Enter payment mode" required="required">
-                                </div>
-                                <div class="col-md-3"></div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-sm pull-left" id="addExpenseItemId" data-dismiss="modal"><b>Save</b></button>
-                            <button type="button" class="btn btn-danger btn-sm pull-left" data-dismiss="modal" id="closeId"><b>Cancel</b></button>
-                        </div>
+                        <div class="modal-footer"></div>
                     </div>
                 </div>
             </div>
@@ -280,17 +249,6 @@
 <script src="../../assets/dist/js/demo.js"></script>
 <script src="../../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script>
-   $(function () {
-    $('#expenseDetailsTableId').DataTable({
-      'paging'      : false,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : false,
-      'info'        : false,
-      'autoWidth'   : false
-    })
-  })
-</script>
+<script src="../../admin/js/viewExpenses.js"></script>
 </body>
 </html>

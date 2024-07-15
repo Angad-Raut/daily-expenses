@@ -67,7 +67,7 @@ public class ExpensesRepositoryTest {
     public void getMonthAllExpensesTest() {
         ExpensesDetails details = expensesRepository.save(ExpenseUtils.toCreateExpenses());
         ExpensesDetails details1 = expensesRepository.save(ExpenseUtils.toCreateExpensesTwo());
-        List<ExpensesDetails> fetchList = expensesRepository.getMonthAllExpenses(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
+        List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
         ExpensesDetails first = fetchList.get(0);
         ExpensesDetails second = fetchList.get(1);
         assertEquals(first.getId()!=null?first.getId():null,details.getId()!=null?details.getId():null);

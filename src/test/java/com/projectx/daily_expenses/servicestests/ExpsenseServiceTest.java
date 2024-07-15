@@ -70,7 +70,7 @@ public class ExpsenseServiceTest {
     public void getAllExpensesOfMonthsTest() {
         when(expensesRepository.save(ExpenseUtils.toCreateExpenses())).thenReturn(ExpenseUtils.toCreateExpenses());
         when(expensesRepository.save(ExpenseUtils.toCreateExpensesTwo())).thenReturn(ExpenseUtils.toCreateExpensesTwo());
-        when(expensesRepository.getMonthAllExpenses(Constants.firstDayOfMonth(),Constants.lastDayOfMonth())).thenReturn(new ArrayList<ExpensesDetails>());
+        when(expensesRepository.getAllExpensesWithDates(Constants.firstDayOfMonth(),Constants.lastDayOfMonth())).thenReturn(new ArrayList<ExpensesDetails>());
         assertNotNull(expenseService.getAllExpensesOfMonths());
     }
 

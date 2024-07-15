@@ -91,7 +91,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public List<ViewExpensesDto> getAllExpensesOfMonths() {
-        List<ExpensesDetails> fetchList = expensesRepository.getMonthAllExpenses(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
+        List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
         AtomicInteger index = new AtomicInteger(0);
         return !fetchList.isEmpty()?fetchList.stream()
                 .map(data -> ViewExpensesDto.builder()
@@ -152,6 +152,7 @@ public class ExpenseServiceImpl implements ExpenseService {
             throw new ResourceNotFoundException(e.getMessage());
         }
     }
+
     private void isExpenseExist(){
         Integer count = expensesRepository.expenseExists(Constants.atStartOfDay(),Constants.atEndOfDay());
         if (count>0) {

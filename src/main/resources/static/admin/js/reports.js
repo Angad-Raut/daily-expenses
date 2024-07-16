@@ -1,3 +1,4 @@
+var expenseItemsList=[];
 $(document).ready(function(){
     if (localStorage.getItem("fullName")==null && localStorage.getItem("userId")==null){
           window.open("../../login.html","_self");
@@ -102,13 +103,15 @@ function getReportData(formData) {
             if(data.result!=null){
                   $("#download_txt").show();
                   $("#table_div").show();
+                  expenseItemsList=[];
                   var dataList=data.result;
+                  expenseItemsList=data.result;
                   for(var i in dataList){
                       table.row.add( [
                              dataList[i].srNo,
                              dataList[i].totalAmount,
                              dataList[i].expenseDate,
-                             '<button class="btn bg-teal btn-xs" type="button" data-toggle="modal" data-target="#viewItemModal" onclick="getExpenseItems('+dataList[i].itemsList+')"><b>View</b></button>&nbsp;&nbsp;'+
+                             '<button class="btn bg-teal btn-xs" type="button" data-toggle="modal" data-target="#viewItemModal" onclick="getExpenseItems('+dataList[i].expenseId+')"><b>View</b></button>&nbsp;&nbsp;'+
                              '<button class="btn bg-teal btn-xs" type="button" onclick="generateReportByExpenseId('+dataList[i].expenseId+')"><b>Download</b></button>'
                       ] ).draw(false);
                   }
@@ -173,16 +176,22 @@ function generateReportWithDateRange(formData) {
         });
   }
 
-  function getExpenseItems(dataList) {
+  function getExpenseItems(expenseId) {
       var table = $('#viewExpenseItemsTableId').DataTable();
       table.clear().draw();
       table.destroy();
-      for(var i in dataList){
-         table.row.add( [
-            dataList[i].srNo,
-            dataList[i].itemName,
-            dataList[i].itemPrice,
-            dataList[i].paymentWith
-         ] ).draw(false);
+      for (var i in expenseItemsList) {
+           if (expenseItemsList[i].expenseId==expenseId) {
+               var itemList = expenseItemsList[i].itemsList;
+               for(var j in itemList){
+                   table.row.add( [
+                           itemList[j].srNo,
+                           itemList[j].itemName,
+                           itemList[j].itemPrice,
+                           itemList[j].paymentWith
+                   ] ).draw(false);
+               }
+               break;
+           }
       }
   }

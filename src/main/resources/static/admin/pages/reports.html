@@ -147,10 +147,8 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-2">
-                            <label><b><span class="required-field"></span>From Date : </b></label>
-                        </div>
                         <div class="col-md-3">
+                            <label><b><span class="required-field"></span>From Date : </b></label>
                             <div class="input-group date" data-provide="datepicker" id="from_date_txt">
                                 <input type="text" class="form-control" id="start_date" placeholder="1 January 2024">
                                 <div class="input-group-addon">
@@ -158,10 +156,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <label><b><span class="required-field"></span>To Date : </b></label>
-                        </div>
                         <div class="col-md-3">
+                            <label><b><span class="required-field"></span>To Date : </b></label>
                             <div class="input-group date" data-provide="datepicker" id="to_date_txt">
                                 <input type="text" class="form-control" id="end_date" placeholder="1 January 2024">
                                 <div class="input-group-addon">
@@ -169,11 +165,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary btn-sm" id="search_txt"><b>Search</b></button>
+                        <div class="col-md-3">
+                            <br>
+                            <button class="btn btn-primary" id="search_txt"><b>Search</b></button>
+                            <button class="btn btn-primary" id="download_txt"><b>Download</b></button>
                         </div>
+                        <div class="col-md-3"></div>
                     </div><br>
-                    <div class="row">
+                    <div class="row" id="table_div">
                         <div class="col-md-12">
                             <table id="reportTableId" class="table table-bordered table-striped">
                                 <thead>
@@ -190,6 +189,36 @@
                 </div>
             </div>
             <!-- /Small boxes (Stat box) -->
+            <!-- modal start -->
+            <div class="modal fade" id="viewItemModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title"><b>View Expense Items</b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="viewExpenseItemsTableId" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Item Name</th>
+                                            <th>Item Price</th>
+                                            <th>Payment Mode</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
         </section>
         <!-- /.content -->
     </div>
@@ -247,5 +276,17 @@
 <script src="../../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="../../admin/js/reports.js"></script>
+<script>
+   $(function () {
+    $("#viewExpenseItemsTableId").DataTable({
+      'paging'      : false,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : false,
+      'info'        : false,
+      'autoWidth'   : false
+    });
+  })
+</script>
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.projectx.daily_expenses.services;
 
 import com.projectx.daily_expenses.commons.Constants;
 import com.projectx.daily_expenses.commons.DateRangeDto;
+import com.projectx.daily_expenses.commons.EntityIdDto;
+import com.projectx.daily_expenses.commons.ResourceNotFoundException;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
 import com.projectx.daily_expenses.dtos.ViewReportDto;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
@@ -37,6 +39,51 @@ public class ReportServiceImpl implements ReportService {
         } else {
             return byteData;
         }
+    }
+
+    @Override
+    public byte[] generateReportByExpenseId(EntityIdDto dto) throws ResourceNotFoundException, ParseException {
+        try {
+            byte[] byteData = null;
+            ExpensesDetails details = expensesRepository.getExpensesById(dto.getEntityId());
+            if (details==null) {
+                throw new ResourceNotFoundException(Constants.EXPENSE_NOT_EXISTS);
+            }
+            AtomicInteger counter = new AtomicInteger(0);
+            ViewReportDto reportDto = ViewReportDto.builder()
+                    .srNo(1)
+                    .expenseId(details.getId())
+                    .expenseDate(Constants.toExpenseDate(details.getInsertedTime()))
+                    .totalAmount(details.getTotalAmount())
+                    .itemsList(details.getExpenseItems().stream()
+                            .map(item -> ViewExpenseItemsDto.builder()
+                                    .srNo(counter.incrementAndGet())
+                                    .itemName(item.getItemName())
+                                    .itemPrice(item.getItemPrice())
+                                    .paymentWith(item.getPaymentType())
+                                    .build())
+                            .toList())
+                    .build();
+            if (reportDto!=null) {
+                return ReportGenerator.generateReportByExpenseId(reportDto);
+            } else {
+                return byteData;
+            }
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<ViewReportDto> getExpenseReportData(DateRangeDto dto) throws ParseException {
+        Date startDate = Constants.getISOStartDate(dto.getStartDate());
+        Date endDate = Constants.getISOEndDate(dto.getEndDate());
+        AtomicInteger index = new AtomicInteger(0);
+        List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(startDate,endDate);
+        return fetchList!=null && !fetchList.isEmpty()?fetchList.stream()
+                .map(data -> setExpenseData(data,index))
+                .toList():new ArrayList<>();
+
     }
 
     private ViewReportDto setExpenseData(ExpensesDetails details,AtomicInteger index) {

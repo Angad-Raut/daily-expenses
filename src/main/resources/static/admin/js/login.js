@@ -38,7 +38,6 @@ function getLogin(formData){
             dataType : "json",
             data : JSON.stringify(formData),
             success : function(data) {
-                alert(JSON.stringify(data))
                 if(data.result!=null){
                     swal({
                         title: "LoggedIn!",

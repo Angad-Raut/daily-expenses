@@ -1,0 +1,51 @@
+= Daily Expenses Application API Documentation
+Angad Raut<angadraut75@gmail.com>
+1.0.0, 08 July 2024
+:toc: left
+:sectnums:
+
+== Daily Expenses Application API List
+
+There are seven endpoints which are listed below.
+
+=== Create Expenses
+
+include::{snippets}/expenses-controller-test/create_expense_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/create_expense_test/http-response.adoc[]
+
+=== AddOn Expenses
+
+include::{snippets}/expenses-controller-test/update_expense_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/update_expense_test/http-response.adoc[]
+
+=== Update Expense status
+
+include::{snippets}/expenses-controller-test/update_expense_status_by_id_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/update_expense_status_by_id_test/http-response.adoc[]
+
+=== Get Expenses Details By Id
+
+include::{snippets}/expenses-controller-test/get_expense_by_id_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/get_expense_by_id_test/http-response.adoc[]
+
+=== Get All Expenses of Current Month
+
+include::{snippets}/expenses-controller-test/get_all_expenses_of_month_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/get_all_expenses_of_month_test/http-response.adoc[]
+
+=== Get All Expenses
+
+include::{snippets}/expenses-controller-test/get_all_expenses_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/get_all_expenses_test/http-response.adoc[]
+
+=== Get Expenses Items By Expense Id
+
+include::{snippets}/expenses-controller-test/get_expense_items_by_expense_id_test/http-request.adoc[]
+
+include::{snippets}/expenses-controller-test/get_expense_items_by_expense_id_test/http-response.adoc[]

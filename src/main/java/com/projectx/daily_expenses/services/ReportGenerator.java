@@ -21,8 +21,11 @@ public class ReportGenerator {
             sb.append("<table border='1' style='border-collapse:collapse;width:100%;'>");
             sb.append("<tr>");
             sb.append("<td>");
-            sb.append("<div style='width: 100%; float:center;'>");
-            sb.append(startDate+" To "+endDate);
+            sb.append("<div style='width: 50%; float:left;'>");
+            sb.append("<b>From Date :</b>"+endDate);
+            sb.append("</div>");
+            sb.append("<div style='width: 50%; float:right;'>");
+            sb.append("<b>To Date :</b>"+endDate);
             sb.append("</div>");
             sb.append("</td>");
             sb.append("</tr>");
@@ -62,7 +65,7 @@ public class ReportGenerator {
                            sb.append("</tr>");
                        }
                    sb.append("</table>");
-                sb.append("/td>");
+                sb.append("</td>");
                 sb.append("</tr>");
             }
             sb.append("</table><br>");

@@ -61,13 +61,9 @@ pipeline {
              steps {
                   bat 'docker-compose up --build -d'
                   echo 'SUCCESS'
+                  bat 'docker logout'
+                  bat 'docker rmi 9766945760/daily-expenses:latest'
              }
         }
-    }
-    post {
-         always {
-             bat 'docker logout'
-             bat 'docker rmi 9766945760/daily-expenses:latest'
-         }
     }
 }

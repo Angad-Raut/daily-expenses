@@ -23,7 +23,7 @@ public class ReportGenerator {
             sb.append("<b>From Date :</b>"+startDate);
             sb.append("</div>");
             sb.append("<div style='width: 50%; float:right;'>");
-            sb.append("<b>To Date :</b>"+endDate);
+            sb.append("<b align='center'>To Date :</b>"+endDate);
             sb.append("</div>");
             sb.append("</td>");
             sb.append("</tr>");
@@ -31,19 +31,7 @@ public class ReportGenerator {
             for (ViewReportDto reportDto:reportData){
                 sb.append("<table border='1' style='border-collapse:collapse;width:100%;'>");
                 sb.append("<tr>");
-                sb.append("<th>SrNo</th>");
-                sb.append("<th>Expense Id</th>");
-                sb.append("<th>Total Amount</th>");
-                sb.append("<th>Expense Date</th>");
-                sb.append("</tr>");
-                sb.append("<tr>");
-                sb.append("<td>"+reportDto.getSrNo()+"</td>");
-                sb.append("<td>"+reportDto.getExpenseId()+"</td>");
-                sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
-                sb.append("<td>"+reportDto.getExpenseDate()+"</td>");
-                sb.append("</tr>");
-                sb.append("<tr>");
-                sb.append("<td colspan='4' align='center'><b>Expense Item List</b></td>");
+                sb.append("<td colspan='4' align='center'><b>All Expenses On "+reportDto.getExpenseDate()+"</b></td>");
                 sb.append("</tr>");
                 sb.append("<tr>");
                 sb.append("<td colspan='4'>");
@@ -51,17 +39,23 @@ public class ReportGenerator {
                        sb.append("<tr>");
                        sb.append("<th>SrNo</th>");
                        sb.append("<th>Item Name</th>");
-                       sb.append("<th>Item Price</th>");
                        sb.append("<th>Payment Mode</th>");
+                       sb.append("<th>Item Price</th>");
                        sb.append("</tr>");
                        for (ViewExpenseItemsDto itemsDto:reportDto.getItemsList()) {
                            sb.append("<tr>");
                            sb.append("<td>"+itemsDto.getSrNo()+"</td>");
                            sb.append("<td>"+itemsDto.getItemName()+"</td>");
-                           sb.append("<td>"+itemsDto.getItemPrice()+"</td>");
                            sb.append("<td>"+itemsDto.getPaymentWith()+"</td>");
+                           sb.append("<td>"+itemsDto.getItemPrice()+"</td>");
                            sb.append("</tr>");
                        }
+                   sb.append("<tr>");
+                       sb.append("<td></td>");
+                       sb.append("<td></td>");
+                       sb.append("<td colspan='3'><b>Total</b></td>");
+                       sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
+                   sb.append("</tr>");
                    sb.append("</table>");
                 sb.append("</td>");
                 sb.append("</tr>");
@@ -84,19 +78,7 @@ public class ReportGenerator {
             sb.append("<center><h4><b>Expense Report</b></h4></center>");
             sb.append("<table border='1' style='border-collapse:collapse;width:100%;'>");
             sb.append("<tr>");
-            sb.append("<th>SrNo</th>");
-            sb.append("<th>Expense Id</th>");
-            sb.append("<th>Expense Date</th>");
-            sb.append("<th>Total Amount</th>");
-            sb.append("</tr>");
-            sb.append("<tr>");
-            sb.append("<td>"+reportDto.getSrNo()+"</td>");
-            sb.append("<td>"+reportDto.getExpenseId()+"</td>");
-            sb.append("<td>"+reportDto.getExpenseDate()+"</td>");
-            sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
-            sb.append("</tr>");
-            sb.append("<tr>");
-            sb.append("<td td colspan='4' align='center'><b>Expense Item List</b></td>");
+            sb.append("<td colspan='4' align='center'><b>All Expenses On "+reportDto.getExpenseDate()+"</b></td>");
             sb.append("</tr>");
             sb.append("<tr>");
             sb.append("<td colspan='4'>");
@@ -104,17 +86,23 @@ public class ReportGenerator {
             sb.append("<tr>");
             sb.append("<th>SrNo</th>");
             sb.append("<th>Item Name</th>");
-            sb.append("<th>Item Price</th>");
             sb.append("<th>Payment Mode</th>");
+            sb.append("<th>Item Price</th>");
             sb.append("</tr>");
             for (ViewExpenseItemsDto itemsDto:reportDto.getItemsList()) {
                 sb.append("<tr>");
                 sb.append("<td>"+itemsDto.getSrNo()+"</td>");
                 sb.append("<td>"+itemsDto.getItemName()+"</td>");
-                sb.append("<td>"+itemsDto.getItemPrice()+"</td>");
                 sb.append("<td>"+itemsDto.getPaymentWith()+"</td>");
+                sb.append("<td>"+itemsDto.getItemPrice()+"</td>");
                 sb.append("</tr>");
             }
+            sb.append("<tr>");
+            sb.append("<td></td>");
+            sb.append("<td></td>");
+            sb.append("<td colspan='3'><b>Total</b></td>");
+            sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
+            sb.append("</tr>");
             sb.append("</table>");
             sb.append("</td>");
             sb.append("</tr>");

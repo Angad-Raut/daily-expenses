@@ -51,9 +51,7 @@ public class ReportGenerator {
                            sb.append("</tr>");
                        }
                    sb.append("<tr>");
-                       sb.append("<td></td>");
-                       sb.append("<td></td>");
-                       sb.append("<td colspan='3'><b>Total</b></td>");
+                       sb.append("<td colspan='3' align='right'><b>Total = </b></td>");
                        sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
                    sb.append("</tr>");
                    sb.append("</table>");
@@ -98,10 +96,8 @@ public class ReportGenerator {
                 sb.append("</tr>");
             }
             sb.append("<tr>");
-            sb.append("<td></td>");
-            sb.append("<td></td>");
-            sb.append("<td colspan='3'><b>Total</b></td>");
-            sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
+            sb.append("<td colspan='3' align='right'><b>Total = </b></td>");
+            sb.append("<td><b>"+reportDto.getTotalAmount()+"</b></td>");
             sb.append("</tr>");
             sb.append("</table>");
             sb.append("</td>");

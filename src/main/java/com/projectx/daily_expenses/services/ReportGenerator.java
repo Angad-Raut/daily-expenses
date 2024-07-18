@@ -68,6 +68,43 @@ public class ReportGenerator {
         }
     }
 
+    public static byte[] generateMonthReport(List<ViewReportDto> reportData, String monthAndYear) {
+        try {
+            Double finalTotal = 0.0;
+            StringBuilder sb = new StringBuilder();
+            sb.append("<html>");
+            sb.append("<body>");
+            sb.append("<center><h4><b>"+monthAndYear+" Expense Report</b></h4></center>");
+            sb.append("<table border='1' style='border-collapse:collapse;width:100%;'>");
+            sb.append("<tr>");
+            sb.append("<th>SrNo</th>");
+            sb.append("<th>Expense Date</th>");
+            sb.append("<th>Item Count</th>");
+            sb.append("<th>Total Amount</th>");
+            sb.append("</tr>");
+            for (ViewReportDto reportDto:reportData) {
+                sb.append("<tr>");
+                sb.append("<td>" + reportDto.getSrNo() + "</td>");
+                sb.append("<td>" + reportDto.getExpenseDate() + "</td>");
+                sb.append("<td>" + reportDto.getItemCount() + "</td>");
+                sb.append("<td>" + reportDto.getTotalAmount() + "</td>");
+                sb.append("</tr>");
+                finalTotal = finalTotal+reportDto.getTotalAmount();
+            }
+            sb.append("<tr>");
+            sb.append("<td colspan='3' align='right'><b>Final Total = </b></td>");
+            sb.append("<td>"+finalTotal+"</td>");
+            sb.append("</tr>");
+            sb.append("</table><br>");
+            sb.append("<center><b>This is computer generated report.</b></center>");
+            sb.append("</body>");
+            sb.append("</html>");
+            return ReportUtils.generatePdf(sb.toString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static byte[] generateReportByExpenseId(ViewReportDto reportDto) {
         try {
             StringBuilder sb = new StringBuilder();

@@ -148,18 +148,9 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <label><b><span class="required-field"></span>From Date : </b></label>
-                            <div class="input-group date" data-provide="datepicker" id="from_date_txt">
-                                <input type="text" class="form-control" id="start_date" placeholder="1 January 2024">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label><b><span class="required-field"></span>To Date : </b></label>
-                            <div class="input-group date" data-provide="datepicker" id="to_date_txt">
-                                <input type="text" class="form-control" id="end_date" placeholder="1 January 2024">
+                            <label><b><span class="required-field"></span>Select Month : </b></label>
+                            <div class="input-group date" data-provide="datepicker" id="month_year_txt">
+                                <input type="text" class="form-control" id="month_txt" placeholder="January 2024">
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th"></span>
                                 </div>
@@ -178,8 +169,8 @@
                                 <thead>
                                 <tr>
                                     <th>Sr.No</th>
-                                    <th>Total Amount</th>
                                     <th>Expense Date</th>
+                                    <th>Total Amount</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -275,7 +266,7 @@
 <script src="../../assets/dist/js/demo.js"></script>
 <script src="../../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="../../admin/js/reports.js"></script>
+<script src="../../admin/js/monthlyReport.js"></script>
 <script>
    $(function () {
     $("#viewExpenseItemsTableId").DataTable({

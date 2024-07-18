@@ -1,6 +1,7 @@
 package com.projectx.daily_expenses.controllers;
 
 import com.projectx.daily_expenses.commons.*;
+import com.projectx.daily_expenses.dtos.MonthRequestDto;
 import com.projectx.daily_expenses.dtos.ViewReportDto;
 import com.projectx.daily_expenses.services.ReportService;
 import jakarta.validation.Valid;
@@ -51,4 +52,25 @@ public class ReportController {
             return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
         }
     }
+
+    @PostMapping("/getMonthReportData")
+    public ResponseEntity<ResponseDto<List<ViewReportDto>>> getMonthReportData(@Valid @RequestBody MonthRequestDto dto) {
+        try {
+            List<ViewReportDto> result = reportService.getMonthReportData(dto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
+        } catch (ResourceNotFoundException | InvalidDataException | ParseException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/generateMonthReport")
+    public ResponseEntity<ResponseDto<byte[]>> generateMonthReport(@Valid @RequestBody MonthRequestDto dto) {
+        try {
+            byte[] result = reportService.generateMonthReport(dto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
+        } catch (ResourceNotFoundException | InvalidDataException | ParseException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
 }

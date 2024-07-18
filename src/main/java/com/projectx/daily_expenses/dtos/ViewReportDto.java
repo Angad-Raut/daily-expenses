@@ -16,5 +16,6 @@ public class ViewReportDto {
     private Long expenseId;
     private Double totalAmount;
     private String expenseDate;
+    private Integer itemCount;
     List<ViewExpenseItemsDto> itemsList = new ArrayList<>();
 }

@@ -4,6 +4,7 @@ import com.projectx.daily_expenses.commons.Constants;
 import com.projectx.daily_expenses.commons.DateRangeDto;
 import com.projectx.daily_expenses.commons.EntityIdDto;
 import com.projectx.daily_expenses.commons.ResourceNotFoundException;
+import com.projectx.daily_expenses.dtos.MonthRequestDto;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
 import com.projectx.daily_expenses.dtos.ViewReportDto;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
@@ -12,11 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Component
 public class ReportServiceImpl implements ReportService {
@@ -84,6 +88,34 @@ public class ReportServiceImpl implements ReportService {
                 .map(data -> setExpenseData(data,index))
                 .toList():new ArrayList<>();
 
+    }
+
+    @Override
+    public List<ViewReportDto> getMonthReportData(MonthRequestDto dto) throws ParseException {
+        byte[] byteData = null;
+        String data[] = dto.getMonthName().split(" ");
+        LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(data[1].toString()), Month.valueOf(data[0].toString().toUpperCase()),1,0,0,0,0);
+        LocalDateTime startDate = localDateTime.with(TemporalAdjusters.firstDayOfMonth()).plusHours(0).plusMinutes(0).plusSeconds(0);
+        LocalDateTime endDate = localDateTime.with(TemporalAdjusters.lastDayOfMonth()).plusHours(23).plusMinutes(59).plusSeconds(59);
+        Date fromDate = Date.from(startDate.atZone(ZoneId.systemDefault()).with(TemporalAdjusters.firstDayOfMonth()).toInstant());
+        Date toDate = Date.from(endDate.atZone(ZoneId.systemDefault()).with(TemporalAdjusters.lastDayOfMonth()).toInstant());
+        AtomicInteger index = new AtomicInteger(0);
+        List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(fromDate,toDate);
+        List<ViewReportDto> reportDataList = fetchList!=null && !fetchList.isEmpty()?fetchList.stream()
+                .map(result -> setExpenseData(result,index))
+                .toList():new ArrayList<>();
+        return reportDataList;
+    }
+
+    @Override
+    public byte[] generateMonthReport(MonthRequestDto dto) throws ParseException {
+        byte[] byteData = null;
+        List<ViewReportDto> reportDataList = getMonthReportData(dto);
+        if (reportDataList!=null && !reportDataList.isEmpty()) {
+            return ReportGenerator.generateMonthReport(reportDataList, dto.getMonthName());
+        } else {
+            return byteData;
+        }
     }
 
     private ViewReportDto setExpenseData(ExpensesDetails details,AtomicInteger index) {

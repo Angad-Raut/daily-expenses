@@ -123,6 +123,7 @@ public class ReportServiceImpl implements ReportService {
         return ViewReportDto.builder()
                 .srNo(index.incrementAndGet())
                 .expenseId(details.getId())
+                .itemCount(details.getExpenseItems().size())
                 .expenseDate(Constants.toExpenseDate(details.getInsertedTime()))
                 .totalAmount(details.getTotalAmount())
                 .itemsList(details.getExpenseItems().stream()

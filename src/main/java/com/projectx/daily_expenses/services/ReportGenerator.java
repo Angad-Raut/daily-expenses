@@ -51,8 +51,8 @@ public class ReportGenerator {
                            sb.append("</tr>");
                        }
                    sb.append("<tr>");
-                       sb.append("<td colspan='3' align='right'><b>Total = </b></td>");
-                       sb.append("<td>"+reportDto.getTotalAmount()+"</td>");
+                       sb.append("<td colspan='3' align='right'><b>Total</b></td>");
+                       sb.append("<td><b>"+reportDto.getTotalAmount()+"</b></td>");
                    sb.append("</tr>");
                    sb.append("</table>");
                 sb.append("</td>");
@@ -92,8 +92,8 @@ public class ReportGenerator {
                 finalTotal = finalTotal+reportDto.getTotalAmount();
             }
             sb.append("<tr>");
-            sb.append("<td colspan='3' align='right'><b>Final Total = </b></td>");
-            sb.append("<td>"+finalTotal+"</td>");
+            sb.append("<td colspan='3' align='right'><b>Total</b></td>");
+            sb.append("<td><b>"+finalTotal+"</b></td>");
             sb.append("</tr>");
             sb.append("</table><br>");
             sb.append("<center><b>This is computer generated report.</b></center>");

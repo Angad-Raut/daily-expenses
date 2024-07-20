@@ -7,6 +7,13 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../../admin/css/commonPlugins.css">
+    <style>
+    .required-field::after {
+	  content: "*";
+	  color: red;
+	  margin-left:2px
+   }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -105,7 +112,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../../admin/pages/reports.html"><i class="fa fa-angle-right"></i>Reports</a></li>
+                        <li><a href="../../admin/pages/reports.html"><i class="fa fa-angle-right"></i>Date Range Reports</a></li>
+                        <li><a href="../../admin/pages/monthlyReport.html"><i class="fa fa-angle-right"></i>Monthly Report</a></li>
                     </ul>
                 </li>
             </ul>

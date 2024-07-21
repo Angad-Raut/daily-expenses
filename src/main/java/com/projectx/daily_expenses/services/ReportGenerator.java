@@ -10,6 +10,9 @@ import java.util.List;
 @Component
 public class ReportGenerator {
 
+    /*
+     * This function used for to generate Expense report with date range.
+     */
     public static byte[] generateReport(List<ViewReportDto> reportData, String startDate, String endDate) {
         try {
             StringBuilder sb = new StringBuilder();
@@ -68,6 +71,9 @@ public class ReportGenerator {
         }
     }
 
+    /*
+     * This function used for to generate Monthly Expense report.
+     */
     public static byte[] generateMonthReport(List<ViewReportDto> reportData, String monthAndYear) {
         try {
             Double finalTotal = 0.0;
@@ -105,6 +111,9 @@ public class ReportGenerator {
         }
     }
 
+    /*
+     * This function used for to generate Expense report with Expense Id.
+     */
     public static byte[] generateReportByExpenseId(ViewReportDto reportDto) {
         try {
             StringBuilder sb = new StringBuilder();

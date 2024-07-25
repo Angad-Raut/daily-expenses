@@ -1,16 +1,22 @@
 package com.projectx.daily_expenses.services;
 
 import com.projectx.daily_expenses.commons.*;
-import com.projectx.daily_expenses.dtos.ExpenseDto;
-import com.projectx.daily_expenses.dtos.ExpenseItemDto;
-import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
-import com.projectx.daily_expenses.dtos.ViewExpensesDto;
+import com.projectx.daily_expenses.dtos.*;
 import com.projectx.daily_expenses.entities.ExpenseItems;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
 import com.projectx.daily_expenses.repositories.ExpensesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +47,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                     .totalAmount(expenseItemDtos.stream()
                             .map(ExpenseItemDto::getItemPrice)
                             .mapToDouble(Double::doubleValue).sum())
-                    .insertedTime(new Date())
+                    .insertedTime(expenseDto.getExpenseDate()!=null?Constants.getISODate(expenseDto.getExpenseDate()):new Date())
                     .status(true)
                     .build();
             return expensesRepository.save(expensesDetails)!=null?true:false;
@@ -151,6 +157,175 @@ public class ExpenseServiceImpl implements ExpenseService {
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
         }
+    }
+
+    @Override
+    public PageResponseDto getAllExpensesPagesWithDateRange(PageRequestDto dto) throws ParseException {
+        Date startDate = Constants.firstDayOfMonth();
+        Date endDate = Constants.lastDayOfMonth();
+        String sortParameter = "";
+        if (dto.getSortParam()!=null && dto.getSortParam().equals("srNo")) {
+            sortParameter = "id";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("totalAmount")) {
+            sortParameter = "total_amount";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("expenseDate")) {
+            sortParameter = "inserted_time";
+        } else {
+            sortParameter = "inserted_time";
+        }
+        Sort sort = dto.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortParameter).ascending()
+                : Sort.by(sortParameter).descending();
+        Pageable pageable = PageRequest.of(dto.getPageNumber()-1, dto.getPageSize(), sort);
+        Page<ExpensesDetails> expenses = expensesRepository.getAllExpensesPagesWithDateRange(
+                startDate,endDate,pageable);
+        Integer pageNumber = dto.getPageNumber()-1;
+        AtomicInteger index = new AtomicInteger(dto.getPageSize()*pageNumber);
+        List<ExpensesDetails> listOfExpenses = expenses.getContent();
+        List<ViewExpensesDto> expensesList = !listOfExpenses.isEmpty()?listOfExpenses.stream()
+                .map(data -> ViewExpensesDto.builder()
+                        .srNo(index.incrementAndGet())
+                        .expenseId(data.getId())
+                        .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
+                        .totalAmount(data.getTotalAmount())
+                        .build()).toList()
+                :new ArrayList<>();
+        return !expensesList.isEmpty()?PageResponseDto.builder()
+                .pageNo(expenses.getNumber())
+                .pageSize(expenses.getSize())
+                .totalPages(expenses.getTotalPages())
+                .totalElements(expenses.getTotalElements())
+                .content(expensesList)
+                .build():new PageResponseDto();
+    }
+
+    @Override
+    public PageResponseDto getAllExpensesPages(PageRequestDto dto) {
+        String sortParameter = "";
+        if (dto.getSortParam()!=null && dto.getSortParam().equals("srNo")) {
+            sortParameter = "id";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("totalAmount")) {
+            sortParameter = "total_amount";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("expenseDate")) {
+            sortParameter = "inserted_time";
+        } else {
+            sortParameter = "inserted_time";
+        }
+        Sort sort = dto.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortParameter).ascending()
+                : Sort.by(sortParameter).descending();
+        Pageable pageable = PageRequest.of(dto.getPageNumber()-1, dto.getPageSize(), sort);
+        Page<ExpensesDetails> expenses = expensesRepository.getAllExpensesPages(pageable);
+        Integer pageNumber = dto.getPageNumber()-1;
+        AtomicInteger index = new AtomicInteger(dto.getPageSize()*pageNumber);
+        List<ExpensesDetails> listOfExpenses = expenses.getContent();
+        List<ViewExpensesDto> expensesList = !listOfExpenses.isEmpty()?listOfExpenses.stream()
+                .map(data -> ViewExpensesDto.builder()
+                        .srNo(index.incrementAndGet())
+                        .expenseId(data.getId())
+                        .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
+                        .totalAmount(data.getTotalAmount())
+                        .build()).toList()
+                :new ArrayList<>();
+        return !expensesList.isEmpty()?PageResponseDto.builder()
+                .pageNo(expenses.getNumber())
+                .pageSize(expenses.getSize())
+                .totalPages(expenses.getTotalPages())
+                .totalElements(expenses.getTotalElements())
+                .content(expensesList)
+                .build():new PageResponseDto();
+    }
+
+    @Override
+    public PageResponseDto getMonthlyExpensesPages(MonthlyPageRequestDto dto) {
+        String sortParameter = "";
+        if (dto.getSortParam()!=null && dto.getSortParam().equals("srNo")) {
+            sortParameter = "id";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("totalAmount")) {
+            sortParameter = "total_amount";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("expenseDate")) {
+            sortParameter = "inserted_time";
+        } else {
+            sortParameter = "inserted_time";
+        }
+        String data[] = dto.getMonthName().split(" ");
+        LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(data[1].toString()), Month.valueOf(data[0].toString().toUpperCase()),1,0,0,0,0);
+        LocalDateTime startDate = localDateTime.with(TemporalAdjusters.firstDayOfMonth()).plusHours(0).plusMinutes(0).plusSeconds(0);
+        LocalDateTime endDate = localDateTime.with(TemporalAdjusters.lastDayOfMonth()).plusHours(23).plusMinutes(59).plusSeconds(59);
+        Date fromDate = Date.from(startDate.atZone(ZoneId.systemDefault()).with(TemporalAdjusters.firstDayOfMonth()).toInstant());
+        Date toDate = Date.from(endDate.atZone(ZoneId.systemDefault()).with(TemporalAdjusters.lastDayOfMonth()).toInstant());
+        Sort sort = dto.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortParameter).ascending()
+                : Sort.by(sortParameter).descending();
+        Pageable pageable = PageRequest.of(dto.getPageNumber()-1, dto.getPageSize(), sort);
+        Page<ExpensesDetails> expenses = expensesRepository.getAllExpensesPagesWithDateRange(
+                fromDate,toDate,pageable);
+        Integer pageNumber = dto.getPageNumber()-1;
+        AtomicInteger index = new AtomicInteger(dto.getPageSize()*pageNumber);
+        List<ExpensesDetails> listOfExpenses = expenses.getContent();
+        List<ViewExpensesDto> expensesList = !listOfExpenses.isEmpty()?listOfExpenses.stream()
+                .map(result -> ViewExpensesDto.builder()
+                        .srNo(index.incrementAndGet())
+                        .expenseId(result.getId())
+                        .expenseDate(Constants.toExpenseDate(result.getInsertedTime()))
+                        .totalAmount(result.getTotalAmount())
+                        .build()).toList()
+                :new ArrayList<>();
+        return !expensesList.isEmpty()?PageResponseDto.builder()
+                .pageNo(expenses.getNumber())
+                .pageSize(expenses.getSize())
+                .totalPages(expenses.getTotalPages())
+                .totalElements(expenses.getTotalElements())
+                .content(expensesList)
+                .build():new PageResponseDto();
+    }
+
+    @Override
+    public PageResponseDto getAllExpensesPagesWithDateRangeForReport(DateRangePageRequestDto dto) throws ParseException {
+        Date startDate = Constants.getISOStartDate(dto.getStartDate());
+        Date endDate = Constants.getISOEndDate(dto.getEndDate());
+        String sortParameter = "";
+        if (dto.getSortParam()!=null && dto.getSortParam().equals("srNo")) {
+            sortParameter = "id";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("totalAmount")) {
+            sortParameter = "total_amount";
+        } else if (dto.getSortParam()!=null && dto.getSortParam().equals("expenseDate")) {
+            sortParameter = "inserted_time";
+        } else {
+            sortParameter = "inserted_time";
+        }
+        Sort sort = dto.getSortDir().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortParameter).ascending()
+                : Sort.by(sortParameter).descending();
+        Pageable pageable = PageRequest.of(dto.getPageNumber()-1, dto.getPageSize(), sort);
+        Page<ExpensesDetails> expenses = expensesRepository.getAllExpensesPagesWithDateRange(
+                startDate,endDate,pageable);
+        Integer pageNumber = dto.getPageNumber()-1;
+        AtomicInteger index = new AtomicInteger(dto.getPageSize()*pageNumber);
+        List<ExpensesDetails> listOfExpenses = expenses.getContent();
+        List<ViewExpensesDto> expensesList = !listOfExpenses.isEmpty()?listOfExpenses.stream()
+                .map(data -> ViewExpensesDto.builder()
+                        .srNo(index.incrementAndGet())
+                        .expenseId(data.getId())
+                        .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
+                        .totalAmount(data.getTotalAmount())
+                        .build()).toList()
+                :new ArrayList<>();
+        return !expensesList.isEmpty()?PageResponseDto.builder()
+                .pageNo(expenses.getNumber())
+                .pageSize(expenses.getSize())
+                .totalPages(expenses.getTotalPages())
+                .totalElements(expenses.getTotalElements())
+                .content(expensesList)
+                .build():new PageResponseDto();
+    }
+
+    @Override
+    public DashboardCountDto getDashboardCounts() {
+        Integer allExpenseCount = expensesRepository.getAllExpenseCount();
+        Integer monthlyExpenseCount = expensesRepository.expenseExists(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
+        return DashboardCountDto.builder()
+                .allExpenseCount(allExpenseCount)
+                .monthlyExpenseCount(monthlyExpenseCount)
+                .documentCount(0)
+                .photoCount(0)
+                .build();
     }
 
     private void isExpenseExist(){

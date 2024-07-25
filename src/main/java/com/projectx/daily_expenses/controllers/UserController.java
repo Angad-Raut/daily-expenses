@@ -1,21 +1,14 @@
 package com.projectx.daily_expenses.controllers;
 
-import com.projectx.daily_expenses.commons.AlreadyExistsException;
-import com.projectx.daily_expenses.commons.InvalidDataException;
-import com.projectx.daily_expenses.commons.InvalidUserException;
-import com.projectx.daily_expenses.commons.ResponseDto;
-import com.projectx.daily_expenses.dtos.LoginDto;
-import com.projectx.daily_expenses.dtos.LoginResponseDto;
-import com.projectx.daily_expenses.dtos.UserDto;
+import com.projectx.daily_expenses.commons.*;
+import com.projectx.daily_expenses.dtos.*;
+import com.projectx.daily_expenses.entities.UserProfileDetails;
 import com.projectx.daily_expenses.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/userDetails")
@@ -46,5 +39,45 @@ public class UserController {
     @GetMapping(value = "/logout")
     public ResponseEntity<ResponseDto<Boolean>> logout() {
         return new ResponseEntity<>(new ResponseDto<>(true,null,null),HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/changePassword")
+    public ResponseEntity<ResponseDto<Boolean>> changePassword(@Valid @RequestBody ChangePasswordDto dto) {
+        try {
+            Boolean data = userService.changePassword(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);
+        } catch (ResourceNotFoundException | InvalidDataException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null),HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/updateAccountSetting")
+    public ResponseEntity<ResponseDto<Boolean>> updateAccountSetting(@Valid @RequestBody AccountSettingDto dto) {
+        try {
+            Boolean data = userService.updateUserSetting(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);
+        } catch (ResourceNotFoundException | AlreadyExistsException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null),HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/addUpdateUserProfile")
+    public ResponseEntity<ResponseDto<UserProfileDetails>> addUpdateUserProfile(@Valid @RequestBody UserProfileDto dto) {
+        try {
+            UserProfileDetails data = userService.addUpdateUserProfile(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);
+        } catch (ResourceNotFoundException | AlreadyExistsException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null),HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/getUserProfileDetails")
+    public ResponseEntity<ResponseDto<ViewUserProfileDto>> getUserProfileDetails(@Valid @RequestBody EntityIdDto dto) {
+        try {
+            ViewUserProfileDto data = userService.getUserProfileDetails(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null),HttpStatus.OK);
+        }
     }
 }

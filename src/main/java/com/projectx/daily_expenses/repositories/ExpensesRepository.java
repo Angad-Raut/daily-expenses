@@ -1,6 +1,8 @@
 package com.projectx.daily_expenses.repositories;
 
 import com.projectx.daily_expenses.entities.ExpensesDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +26,9 @@ public interface ExpensesRepository extends JpaRepository<ExpensesDetails,Long> 
             +"where inserted_time between :startDate and :endDate",nativeQuery = true)
     Integer expenseExists(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
 
+    @Query(value = "select count(*) from expenses_details",nativeQuery = true)
+    Integer getAllExpenseCount();
+
     @Modifying
     @Transactional
     @Query(value = "update expenses_details set status=:status where id=:expenseId",nativeQuery = true)
@@ -33,8 +38,15 @@ public interface ExpensesRepository extends JpaRepository<ExpensesDetails,Long> 
             +"where inserted_time between :startDate and :endDate",nativeQuery = true)
     List<ExpensesDetails> getAllExpensesWithDates(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
 
+    @Query(value = "select * from expenses_details expense "
+            +"where inserted_time between :startDate and :endDate",nativeQuery = true)
+    Page<ExpensesDetails> getAllExpensesPagesWithDateRange(@Param("startDate")Date startDate, @Param("endDate")Date endDate, Pageable pageable);
+
     @Query(value = "select * from expenses_details expense ",nativeQuery = true)
     List<ExpensesDetails> getAllExpenses();
+
+    @Query(value = "select * from expenses_details",nativeQuery = true)
+    Page<ExpensesDetails> getAllExpensesPages(Pageable pageable);
 
     @Query(value = "select it.item_name,it.item_price,it.payment_type from expenses_details expense "
             +"join expenses_items it on expense.id=it.expenses_id "

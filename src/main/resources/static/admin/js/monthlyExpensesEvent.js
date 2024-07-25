@@ -111,7 +111,6 @@ function deleteRow(r) {
         arrayList.splice(index, 1);
       }
       populateTable(arrayList,false);
-      hideData();
       swal({
         title: "Deleted!",
         text: "Record is deleted successfully!",

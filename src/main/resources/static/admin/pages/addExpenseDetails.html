@@ -148,8 +148,23 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
+                        <div class="col-md-2">
+                            <label for="expense_date"><b>Select Date</b></label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group date" data-provide="datepicker" id="expense_date_txt">
+                                <input type="text" class="form-control" id="expense_date" placeholder="1 January 2024">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#expense-modal"><b>Add Items</b></button>
+                        </div>
+                    </div><br>
+                    <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#expense-modal"><b>Add Items</b></button><br><br>
                             <table id="expenseItemTableId" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -162,7 +177,7 @@
                                 </thead>
                             </table>
                         </div>
-                    </div>
+                    </div><br>
                     <div class="row">
                         <div class="col-md-2">
                             <label><b><span class="required-field"></span>Total Amount:</b></label>
@@ -285,17 +300,5 @@
 <script src="../../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="../../admin/js/addExpenses.js"></script>
 <script src="../../admin/js/addExpensesService.js"></script>
-<!--<script>
-   $(function () {
-    $('#expenseItemTableId').DataTable({
-      'paging'      : false,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : false,
-      'info'        : false,
-      'autoWidth'   : false
-    })
-  })
-</script>-->
 </body>
 </html>

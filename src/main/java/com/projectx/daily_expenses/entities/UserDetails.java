@@ -23,5 +23,9 @@ public class UserDetails {
     private Long userMobile;
     private String userPassword;
     private Boolean userStatus;
+    @Lob
+    private byte[] photo;
+    @Lob
+    private byte[] signature;
     private Date insertedTime;
 }

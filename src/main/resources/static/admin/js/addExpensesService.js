@@ -17,16 +17,22 @@ function initializeItemsTable() {
       'info'        : true,
       'autoWidth'   : false
    });
+   $('#expense_date_txt').datepicker({
+       format: 'dd MM yyyy',
+       endDate: '0d'
+   });
 }
 
 $("#saveExpenseId").click(function(){
     var flag = 0 ;
+    var expenseId = $("#expense_id").val();
+    var expenseDate = $("#expense_date").val();
     if (itemList.length==0) {
         swal("Warning!", "Please enter at least one item!", "warning");
         flag=1;
         return false;
     }
-    var formData = {id:null,expenseItemDtos:itemList};
+    var formData = {id:null,expenseItemDtos:itemList,expenseDate:expenseDate};
     $.ajax({
            type : "POST",
            contentType: "application/json; charset=utf-8",
@@ -70,6 +76,7 @@ $("#saveExpenseId").click(function(){
 
 function clearAllData(){
     $("#expense_id").val("");
+    $("#expenseDate").val("");
     $("#total_amount").val("");
     clearData();
     arrayList = [];

@@ -14,6 +14,7 @@ import java.util.Set;
 @Builder
 public class ExpenseDto {
     private Long id;
+    private String expenseDate;
     @NotEmpty(message = "Please provide at least one item!!")
     private Set<ExpenseItemDto> expenseItemDtos=new HashSet<>();
 }

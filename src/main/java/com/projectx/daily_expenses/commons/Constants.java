@@ -19,6 +19,11 @@ public final class Constants {
     public static final String MOBILE_NUMBER_EXISTS="Mobile number already exist!!";
     public static final String EMAIL_ID_EXISTS="Email Id already exist!!";
     public static final String USER_NOT_EXISTS="Please login with valid user!!";
+    public static final String USER_PROFILE_NOT_EXISTS="User profile details not present in the system!!";
+    public static final String PAN_NUMBER_ALREADY_EXISTS="Pan card number already exists!!";
+    public static final String AADHAR_NUMBER_ALREADY_EXISTS="Aadhar card number already exists!!";
+    public static final String OLD_PASSWORD_NOT_MATCH="Old password doesn't match with system password!!";
+    public static final String NEW_PASSWORD_SAME="New password should not be same as old password!!";
     public static final String INVALID_CREDENTIALS="Invalid username or password!!";
     public static final String DASH="-";
     public static final String OPEN="Open";
@@ -66,6 +71,14 @@ public final class Constants {
         String convertedDate = ISOFormat.format(beforeDate);
         Date finalDate = ISOFormat.parse(convertedDate);
         return localDateTimeToDate(dateToLocalDateTime(finalDate).with(LocalTime.MIN));
+    }
+    public static Date getISODate(String date) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat(VIEW_DATE_FORMAT);
+        Date beforeDate = format.parse(date);
+        SimpleDateFormat ISOFormat = new SimpleDateFormat(ISO_DATE_FORMAT);
+        String convertedDate = ISOFormat.format(beforeDate);
+        Date finalDate = ISOFormat.parse(convertedDate);
+        return localDateTimeToDate(dateToLocalDateTime(finalDate));
     }
     public static Date getISOEndDate(String endDate) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat(VIEW_DATE_FORMAT);

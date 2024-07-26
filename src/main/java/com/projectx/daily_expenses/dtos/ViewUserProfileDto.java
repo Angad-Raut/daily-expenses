@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 public class ViewUserProfileDto {
     private Long id;
     private Long userId;
+    private String fullName;
+    private String email;
+    private Long mobile;
     private String qualification;
     private String profession;
     private String gender;

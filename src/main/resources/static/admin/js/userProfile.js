@@ -167,6 +167,9 @@ function addUpdateUserProfiles(formData) {
 function setProfileDetails(data) {
         $("#record_id").val(data.id);
         $("#user_id").val(data.userId);
+        $("#user_name").val(data.fullName);
+        $("#user_mobile").val(data.mobile);
+        $("#user_email").val(data.email);
         $("#gender_txt").val(data.gender);
         $("#qualification_txt").val(data.qualification);
         $("#profession_txt").val(data.profession);
@@ -184,6 +187,9 @@ function setProfileDetails(data) {
 function clearData() {
      $("#record_id").val("");
      $("#user_id").val("");
+     $("#user_name").val("");
+     $("#user_mobile").val("");
+     $("#user_email").val("");
      $("#gender_txt").val("");
      $("#qualification_txt").val("");
      $("#profession_txt").val("");

@@ -197,9 +197,16 @@ public class UserServiceImpl implements UserService{
             if (details==null) {
                 throw new ResourceNotFoundException(Constants.USER_PROFILE_NOT_EXISTS);
             }
+            UserDetails userDetails = userRepository.getUserDetailsById(details.getUserId());
+            if (userDetails==null) {
+                throw new ResourceNotFoundException(Constants.USER_NOT_EXISTS);
+            }
             return ViewUserProfileDto.builder()
                     .id(details.getId())
                     .userId(details.getUserId())
+                    .fullName(userDetails.getUserName())
+                    .mobile(userDetails.getUserMobile())
+                    .email(userDetails.getUserEmail())
                     .qualification(details.getQualification())
                     .profession(details.getProfession())
                     .gender(details.getGender())
@@ -212,6 +219,24 @@ public class UserServiceImpl implements UserService{
                     .state(details.getState())
                     .country(details.getCountry())
                     .pinCode(details.getPinCode())
+                    .build();
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
+    @Override
+    public AccountInfoDto getAccountInfo(EntityIdDto dto) throws ResourceNotFoundException {
+        try {
+            UserDetails details = userRepository.getUserDetailsById(dto.getEntityId());
+            if (details==null) {
+                throw new ResourceNotFoundException(Constants.USER_NOT_EXISTS);
+            }
+            return AccountInfoDto.builder()
+                    .mobile(details.getUserMobile())
+                    .email(details.getUserEmail())
+                    .photoUrl(details.getPhoto())
+                    .signatureUrl(details.getSignature())
                     .build();
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());

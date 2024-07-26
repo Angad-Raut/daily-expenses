@@ -32,6 +32,9 @@ $("#saveExpenseId").click(function(){
         flag=1;
         return false;
     }
+    if (expenseDate=="") {
+        expenseDate=null;
+    }
     var formData = {id:null,expenseItemDtos:itemList,expenseDate:expenseDate};
     $.ajax({
            type : "POST",

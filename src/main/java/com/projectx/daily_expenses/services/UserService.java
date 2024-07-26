@@ -11,4 +11,5 @@ public interface UserService {
     Boolean updateUserSetting(AccountSettingDto dto)throws ResourceNotFoundException,AlreadyExistsException;
     UserProfileDetails addUpdateUserProfile(UserProfileDto dto)throws ResourceNotFoundException,AlreadyExistsException;
     ViewUserProfileDto getUserProfileDetails(EntityIdDto dto)throws ResourceNotFoundException;
+    AccountInfoDto getAccountInfo(EntityIdDto dto)throws ResourceNotFoundException;
 }

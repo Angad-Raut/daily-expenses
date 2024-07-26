@@ -36,6 +36,15 @@ public class UserController {
             return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
         }
     }
+    @RequestMapping(value = "/getAccountInfo")
+    public ResponseEntity<ResponseDto<AccountInfoDto>> getAccountInfo(@Valid @RequestBody EntityIdDto dto) {
+        try {
+            AccountInfoDto data = userService.getAccountInfo(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
     @GetMapping(value = "/logout")
     public ResponseEntity<ResponseDto<Boolean>> logout() {
         return new ResponseEntity<>(new ResponseDto<>(true,null,null),HttpStatus.OK);
@@ -52,7 +61,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/updateAccountSetting")
-    public ResponseEntity<ResponseDto<Boolean>> updateAccountSetting(@Valid @RequestBody AccountSettingDto dto) {
+    public ResponseEntity<ResponseDto<Boolean>> updateAccountSetting(@ModelAttribute @Valid AccountSettingDto dto) {
         try {
             Boolean data = userService.updateUserSetting(dto);
             return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);

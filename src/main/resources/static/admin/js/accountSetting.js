@@ -4,6 +4,7 @@ $(document).ready(function() {
     } else {
         $("#photo_image").hide();
         $("#sign_image").hide();
+        getAccountInfo(localStorage.getItem("userId"));
     }
 });
 
@@ -75,6 +76,36 @@ function updateAccountSetting(formData) {
       			console.log(result.status);
       		}
       });
+}
+
+function getAccountInfo(userId) {
+    var formData = {entityId:userId};
+    $.ajax({
+          type : "POST",
+          contentType: "application/json; charset=utf-8",
+          url : REST_HOST+"/api/userDetails/getAccountInfo",
+          dataType : "json",
+          data : JSON.stringify(formData),
+          success : function(data) {
+              if(data.result!=null){
+                  $("#user_mobile").val(data.result.mobile);
+                  $("#user_email").val(data.result.email);
+                  if (data.result.photoUrl!=null) {
+                      $('#photo_image').attr('src', "data:image/jpg;base64,"+data.result.photoUrl);
+                      $("#photo_image").show();
+                  }
+                  if (data.result.signatureUrl!=null) {
+                      $('#sign_image').attr('src', "data:image/jpg;base64,"+data.result.signatureUrl);
+                      $("#sign_image").show();
+                  }
+              }else {
+                  swal("Error",data.errorMessage, "error");
+              }
+          },
+          error : function(result) {
+             console.log(result.status);
+          }
+    });
 }
 $("#clear_btn").click(function(){
    clearData();

@@ -7,6 +7,7 @@ import com.projectx.daily_expenses.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,7 +61,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "/updateAccountSetting")
+    @PostMapping(value = "/updateAccountSetting",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<ResponseDto<Boolean>> updateAccountSetting(@ModelAttribute @Valid AccountSettingDto dto) {
         try {
             Boolean data = userService.updateUserSetting(dto);

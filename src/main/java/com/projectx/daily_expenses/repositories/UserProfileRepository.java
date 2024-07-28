@@ -8,8 +8,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfileDetails,Long> {
-    @Query(value = "select * from user_profile_details where id=:id",nativeQuery = true)
+    @Query(value = "select * from user_profile where id=:id",nativeQuery = true)
     UserProfileDetails getById(@Param("id")Long id);
+
+    @Query(value = "select * from user_profile where user_id=:userId",nativeQuery = true)
+    UserProfileDetails getByUserId(@Param("userId")Long userId);
+
     Boolean existsUserProfileDetailsByPanNumber(String pan);
     Boolean existsUserProfileDetailsByAadharNumber(String aadhar);
 }

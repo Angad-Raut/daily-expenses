@@ -9,7 +9,7 @@ $(document).ready(function() {
 });
 
 $("#save_btn").click(function(){
-    var userId = $("#user_id").val(localStorage.getItem("userId"));
+    var userId = localStorage.getItem("userId");
     var mobile = $("#user_mobile").val();
     var email = $("#user_email").val();
     var photoId = $("#photo_txt").val();
@@ -51,10 +51,10 @@ $("#save_btn").click(function(){
 function updateAccountSetting(formData) {
       $.ajax({
       		type : "POST",
-            enctype: 'multipart/form-data',
             url : REST_HOST+"/api/userDetails/updateAccountSetting",
             dataType : "json",
             data: formData,
+            enctype: 'multipart/form-data',
             processData: false,
             contentType: false,
       		success : function(data) {
@@ -67,7 +67,6 @@ function updateAccountSetting(formData) {
                        showConfirmButton: false
                      });
                    clearData();
-                   window.open("../static/admin/pages/dashboard.html","_self");
       			}else{
       				swal("Error",data.errorMessage, "error");
       			}
@@ -88,6 +87,8 @@ function getAccountInfo(userId) {
           data : JSON.stringify(formData),
           success : function(data) {
               if(data.result!=null){
+                  var user_id = localStorage.getItem("userId");
+                  $("#user_id").val(user_id);
                   $("#user_mobile").val(data.result.mobile);
                   $("#user_email").val(data.result.email);
                   if (data.result.photoUrl!=null) {
@@ -98,6 +99,7 @@ function getAccountInfo(userId) {
                       $('#sign_image').attr('src', "data:image/jpg;base64,"+data.result.signatureUrl);
                       $("#sign_image").show();
                   }
+                  disableAllFields();
               }else {
                   swal("Error",data.errorMessage, "error");
               }
@@ -134,4 +136,24 @@ sign_txt.onchange = evt => {
     sign_image.src = URL.createObjectURL(file)
     $("#sign_image").show();
   }
+}
+
+function disableAllFields() {
+  $("#user_mobile").attr('disabled', 'disabled');
+  $("#user_email").attr('disabled', 'disabled');
+  $("#photo_txt").hide();
+  $("#sign_txt").hide();
+  $("#save_btn").hide();
+  $("#clear_btn").hide();
+}
+$("#edit_btn").click(function(){
+    enableAllFields();
+});
+function enableAllFields() {
+  $("#user_mobile").removeAttr('disabled');
+  $("#user_email").removeAttr('disabled');
+  $("#photo_txt").show();
+  $("#sign_txt").show();
+  $("#save_btn").show();
+  $("#clear_btn").show();
 }

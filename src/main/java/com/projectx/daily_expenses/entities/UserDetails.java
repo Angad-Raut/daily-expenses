@@ -24,8 +24,10 @@ public class UserDetails {
     private String userPassword;
     private Boolean userStatus;
     @Lob
+    @Column(name = "photo", columnDefinition = "LONGBLOB", length = 1000)
     private byte[] photo;
     @Lob
+    @Column(name = "signature", columnDefinition = "LONGBLOB", length = 1000)
     private byte[] signature;
     private Date insertedTime;
 }

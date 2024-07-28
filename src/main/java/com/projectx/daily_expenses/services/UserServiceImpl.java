@@ -82,21 +82,21 @@ public class UserServiceImpl implements UserService{
              if (details==null) {
                  throw new ResourceNotFoundException(Constants.USER_NOT_EXISTS);
              }
-             if (dto.getUserMobile()!=null) {
+             if (dto.getUserMobile()!=null && !dto.getUserMobile().equals(details.getUserMobile())) {
                  isMobileExist(dto.getUserMobile());
                  details.setUserMobile(dto.getUserMobile());
                  result = true;
              }
-             if (dto.getUserEmail()!=null) {
+             if (dto.getUserEmail()!=null && !dto.getUserEmail().equals(details.getUserEmail())) {
                  isEmailExist(dto.getUserEmail());
                  details.setUserEmail(dto.getUserEmail());
                  result = true;
              }
-             if (dto.getSignature().getName()!=null) {
+             if (dto.getSignature()!=null) {
                  details.setSignature(dto.getSignature().getBytes());
                  result = true;
              }
-             if (dto.getPhoto().getName()!=null) {
+             if (dto.getPhoto()!=null) {
                  details.setPhoto(dto.getPhoto().getBytes());
                  result = true;
              }
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService{
                         .pinCode(dto.getPinCode())
                         .build();
             } else {
-                profileDetails = userProfileRepository.getById(dto.getId());
+                profileDetails = userProfileRepository.getByUserId(dto.getUserId());
                 if (profileDetails==null) {
                     throw new ResourceNotFoundException(Constants.USER_PROFILE_NOT_EXISTS);
                 }
@@ -193,7 +193,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public ViewUserProfileDto getUserProfileDetails(EntityIdDto dto) throws ResourceNotFoundException {
         try {
-            UserProfileDetails details = userProfileRepository.getById(dto.getEntityId());
+            UserProfileDetails details = userProfileRepository.getByUserId(dto.getEntityId());
             if (details==null) {
                 throw new ResourceNotFoundException(Constants.USER_PROFILE_NOT_EXISTS);
             }

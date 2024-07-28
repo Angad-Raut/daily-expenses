@@ -25,6 +25,8 @@ public final class Constants {
     public static final String OLD_PASSWORD_NOT_MATCH="Old password doesn't match with system password!!";
     public static final String NEW_PASSWORD_SAME="New password should not be same as old password!!";
     public static final String INVALID_CREDENTIALS="Invalid username or password!!";
+    public static final String DOCUMENT_ALREADY_EXIST="This document already exists in the system!!";
+    public static final String DOCUMENT_NOT_FOUND="Document not present in the system!!";
     public static final String DASH="-";
     public static final String OPEN="Open";
     public static final String CLOSE="Closed";
@@ -52,10 +54,20 @@ public final class Constants {
         LocalDateTime firstDayOfMonth = dateToLocalDateTime(currentDay).with(TemporalAdjusters.firstDayOfMonth()).with(LocalTime.MIN);
         return localDateTimeToDate(firstDayOfMonth);
     }
+    public static Date firstDayOfYear() {
+        Date currentDay = new Date();
+        LocalDateTime firstDayOfYear = dateToLocalDateTime(currentDay).with(TemporalAdjusters.firstDayOfYear()).with(LocalTime.MIN);
+        return localDateTimeToDate(firstDayOfYear);
+    }
     public static Date lastDayOfMonth() {
         Date currentDay = new Date();
         LocalDateTime lastDayOfMonth = dateToLocalDateTime(currentDay).with(TemporalAdjusters.lastDayOfMonth()).with(LocalTime.MAX);
         return localDateTimeToDate(lastDayOfMonth);
+    }
+    public static Date lastDayOfYear() {
+        Date currentDay = new Date();
+        LocalDateTime lastDayOfYear = dateToLocalDateTime(currentDay).with(TemporalAdjusters.lastDayOfYear()).with(LocalTime.MAX);
+        return localDateTimeToDate(lastDayOfYear);
     }
     private static LocalDateTime dateToLocalDateTime(Date date) {
         return LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());

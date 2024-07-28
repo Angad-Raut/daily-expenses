@@ -52,4 +52,8 @@ public interface ExpensesRepository extends JpaRepository<ExpensesDetails,Long> 
             +"join expenses_items it on expense.id=it.expenses_id "
             +"where expense.id=:expenseId",nativeQuery = true)
     List<Object[]> getExpenseItemsByExpenseId(@Param("expenseId")Long expenseId);
+
+    @Query(value = "select sum(exp.total_amount) from expenses_details exp "
+            +"where exp.inserted_time between :startDate and :endDate",nativeQuery = true)
+    Double getTotalAmountSum(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
 }

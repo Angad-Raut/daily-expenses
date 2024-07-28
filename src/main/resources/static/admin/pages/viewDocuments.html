@@ -140,10 +140,11 @@
                             <table id="documentTableId" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Sr.No</th>
-                                    <th>Document</th>
-                                    <th>Uploaded Date</th>
-                                    <th>Action</th>
+                                    <th style="width:2px;">Sr.No</th>
+                                    <th style="width:5px;">Document Name</th>
+                                    <th style="width:5px;">Document Type</th>
+                                    <th style="width:5px;">Uploaded Date</th>
+                                    <th style="width:83px;">Action</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -159,40 +160,16 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"><b>Add Item</b></h4>
+                            <h4 class="modal-title"><b>View Details</b></h4>
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <label for="item_name"><b><span class="required-field"></span>Item Name</b></label>
+                                <div class="col-md-12">
+                                    <img src="#" class="img-thumbnail" alt="Cinque Terre" id="document_image">
                                 </div>
-                                <div class="col-md-6">
-                                    <input type="hidden" class="form-control" id="recordId">
-                                    <input type="text" class="form-control" id="item_name" placeholder="Enter item name" required="required">
-                                </div>
-                                <div class="col-md-3"></div>
-                            </div><br>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="item_price"><b><span class="required-field"></span>Item Price</b></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="item_price" placeholder="Enter item price" required="required">
-                                </div>
-                                <div class="col-md-3"></div>
-                            </div><br>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="payment_mode"><b><span class="required-field"></span>Payment Mode</b></label>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="payment_mode" placeholder="Enter payment mode" required="required">
-                                </div>
-                                <div class="col-md-3"></div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-sm pull-left" id="addExpenseItemId" data-dismiss="modal"><b>Save</b></button>
                             <button type="button" class="btn btn-danger btn-sm pull-left" data-dismiss="modal" id="closeId"><b>Cancel</b></button>
                         </div>
                     </div>
@@ -255,6 +232,7 @@
 <script src="../../assets/dist/js/demo.js"></script>
 <script src="../../assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../../assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../admin/js/viewDocuments.js"></script>
 <script>
    $(function () {
     $('#documentTableId').DataTable({

@@ -133,9 +133,21 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <div class="col-md-3">
+                                        <label><b><span class="required-field"></span>Select Document Type : </b></label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="hidden" id="document_id">
+                                        <select class="form-control" id="document_type">
+                                            <option value="select" selected>Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
                                         <label><b><span class="required-field"></span>Document Name : </b></label>
                                     </div>
-                                    <div class="col-md-3"><input type="hidden" id="document_id">
+                                    <div class="col-md-3">
                                         <input type="text" class="form-control" id="document_name" placeholder="Enter document name">
                                     </div>
                                     <div class="col-md-6"></div>
@@ -145,23 +157,23 @@
                                         <label><b><span class="required-field"></span>Upload Document  : </b></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <input class="form-control form-control-sm" id="document_image" type="file">
+                                        <input class="form-control form-control-sm" id="document_file" type="file">
                                     </div>
                                     <div class="col-md-6"></div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-3">
-                                        <label><b><span class="required-field"></span>Preview Image : </b></label>
+                                        <label><b><span class="required-field"></span>Preview File : </b></label>
                                     </div>
                                     <div class="col-md-3">
-                                        <img src="https://www.w3schools.com/bootstrap/sanfran.jpg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+                                        <img src="#" class="img-thumbnail" alt="Cinque Terre" width="310" height="250" id="document_image">
                                     </div>
                                     <div class="col-md-6"></div>
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="button" class="btn btn-success btn-sm"><b>Save</b></button>
-                                <button type="button" class="btn btn-danger btn-sm"><b>Clear</b></button>
+                                <button type="button" class="btn btn-success btn-sm" id="save_btn"><b>Save</b></button>
+                                <button type="button" class="btn btn-danger btn-sm" id="clear_btn"><b>Clear</b></button>
                             </div>
                         </form>
                     </div>
@@ -395,6 +407,7 @@
 <script src="../../assets/plugins/loading/loadingoverlay.min.js"></script>
 <script src="../../assets/dist/js/demo.js"></script>
 <script src="../../assets/plugins/iCheck/icheck.min.js"></script>
+<script src="../../admin/js/document.js"></script>
 <script>
   $(function () {
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({

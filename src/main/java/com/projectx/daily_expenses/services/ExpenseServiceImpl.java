@@ -30,6 +30,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Autowired
     private ExpensesRepository expensesRepository;
 
+    @Autowired
+    private DocumentService documentService;
+
     @Override
     public Boolean createExpense(ExpenseDto expenseDto)
             throws AlreadyExistsException, InvalidDataException {
@@ -323,8 +326,9 @@ public class ExpenseServiceImpl implements ExpenseService {
         return DashboardCountDto.builder()
                 .allExpenseCount(allExpenseCount)
                 .monthlyExpenseCount(monthlyExpenseCount)
-                .documentCount(0)
-                .photoCount(0)
+                .monthlyExpenseTotal(expensesRepository.getTotalAmountSum(Constants.firstDayOfMonth(),Constants.lastDayOfMonth()))
+                .yearlyExpenseTotal(expensesRepository.getTotalAmountSum(Constants.firstDayOfYear(),Constants.lastDayOfYear()))
+                .documentCount(documentService.documentCount())
                 .build();
     }
 

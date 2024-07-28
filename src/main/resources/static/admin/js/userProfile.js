@@ -12,8 +12,8 @@ $(document).ready(function(){
 });
 
 $("#submit_btn").click(function(){
+    var userId = localStorage.getItem("userId");
     var recordId = $("#record_id").val();
-    var userId = $("#user_id").val(localStorage.getItem("userId"));
     var gender = $("#gender_txt").val();
     var qualification = $("#qualification_txt").val();
     var profession = $("#profession_txt").val();
@@ -117,6 +117,7 @@ function getUserProfile(userId) {
          success : function(data) {
              if(data.result!=null){
                  setProfileDetails(data.result);
+                 disableAllFields();
              }else{
                  swal("Error",data.errorMessage, "error");
              }
@@ -203,3 +204,40 @@ function clearData() {
      $("#country_txt").val("");
      $("#pinCode_txt").val("");
 }
+function disableAllFields() {
+  $("#gender_txt").attr('disabled', 'disabled');
+  $("#qualification_txt").attr('disabled', 'disabled');
+  $("#profession_txt").attr('disabled', 'disabled');
+  $("#dob_txt").attr('disabled', 'disabled');
+  $("#blood_group_txt").attr('disabled', 'disabled');
+  $("#pan_card_txt").attr('disabled', 'disabled');
+  $("#aadhar_txt").attr('disabled', 'disabled');
+  $("#street_txt").attr('disabled', 'disabled');
+  $("#city_txt").attr('disabled', 'disabled');
+  $("#state_txt").attr('disabled', 'disabled');
+  $("#country_txt").attr('disabled', 'disabled');
+  $("#pinCode_txt").attr('disabled', 'disabled');
+  $("#submit_btn").hide();
+  $("#cancel_btn").hide();
+}
+
+function enableAllFields() {
+  $("#gender_txt").removeAttr('disabled');
+  $("#qualification_txt").removeAttr('disabled');
+  $("#profession_txt").removeAttr('disabled');
+  $("#dob_txt").removeAttr('disabled');
+  $("#blood_group_txt").removeAttr('disabled');
+  $("#pan_card_txt").removeAttr('disabled');
+  $("#aadhar_txt").removeAttr('disabled');
+  $("#street_txt").removeAttr('disabled');
+  $("#city_txt").removeAttr('disabled');
+  $("#state_txt").removeAttr('disabled');
+  $("#country_txt").removeAttr('disabled');
+  $("#pinCode_txt").removeAttr('disabled');
+  $("#submit_btn").show();
+  $("#cancel_btn").show();
+}
+
+$("#edit_btn").click(function() {
+   enableAllFields();
+});

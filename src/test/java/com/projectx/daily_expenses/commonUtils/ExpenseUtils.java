@@ -1,5 +1,6 @@
 package com.projectx.daily_expenses.commonUtils;
 
+import com.projectx.daily_expenses.commons.Constants;
 import com.projectx.daily_expenses.dtos.ExpenseDto;
 import com.projectx.daily_expenses.dtos.ExpenseItemDto;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
@@ -109,7 +110,7 @@ public class ExpenseUtils {
         fetchList.add(ViewExpensesDto.builder()
                         .srNo(1)
                         .expenseId(1L)
-                        .totalAmount(48.0)
+                        .totalAmount(Constants.toINRFormat(48.0))
                         .expenseDate("8 July 2024")
                 .build());
         return fetchList;
@@ -120,13 +121,13 @@ public class ExpenseUtils {
         fetchList.add(ViewExpenseItemsDto.builder()
                    .srNo(1)
                    .itemName("Milk")
-                   .itemPrice(28.0)
+                   .itemPrice(Constants.toINRFormat(28.0))
                    .paymentWith("Cash")
                 .build());
         fetchList.add(ViewExpenseItemsDto.builder()
                 .srNo(2)
                 .itemName("Biscuits")
-                .itemPrice(20.0)
+                .itemPrice(Constants.toINRFormat(20.0))
                 .paymentWith("Cash")
                 .build());
         return fetchList;

@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ViewExpenseItemsDto {
     private Integer srNo;
     private String itemName;
-    private Double itemPrice;
+    private String itemPrice;
     private String paymentWith;
 }

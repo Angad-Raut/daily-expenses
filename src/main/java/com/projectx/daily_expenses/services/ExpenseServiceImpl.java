@@ -106,7 +106,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .map(data -> ViewExpensesDto.builder()
                         .srNo(index.incrementAndGet())
                         .expenseId(data.getId()!=null?data.getId():null)
-                        .totalAmount(data.getTotalAmount()!=null?data.getTotalAmount():0.0)
+                        .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
                         .expenseDate(data.getInsertedTime()!=null?Constants.toExpenseDate(data.getInsertedTime()):Constants.DASH)
                         .build())
                 .collect(Collectors.toList()) : new ArrayList<>();
@@ -120,7 +120,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .map(data -> ViewExpensesDto.builder()
                         .srNo(index.incrementAndGet())
                         .expenseId(data.getId()!=null?data.getId():null)
-                        .totalAmount(data.getTotalAmount()!=null?data.getTotalAmount():0.0)
+                        .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
                         .expenseDate(data.getInsertedTime()!=null?Constants.toExpenseDate(data.getInsertedTime()):Constants.DASH)
                         .build())
                 .collect(Collectors.toList()) : new ArrayList<>();
@@ -137,7 +137,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                     .map(data -> ViewExpenseItemsDto.builder()
                             .srNo(index.incrementAndGet())
                             .itemName(data[0] != null ? data[0].toString():Constants.DASH)
-                            .itemPrice(data[1] != null ? Double.parseDouble(data[1].toString()) : null)
+                            .itemPrice(data[1] != null ? Constants.toINRFormat(Double.parseDouble(data[1].toString())) : Constants.DASH)
                             .paymentWith(data[2] != null ? data[2].toString() : Constants.DASH)
                             .build())
                     .collect(Collectors.toList()) : new ArrayList<>();
@@ -189,7 +189,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .srNo(index.incrementAndGet())
                         .expenseId(data.getId())
                         .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
-                        .totalAmount(data.getTotalAmount())
+                        .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
                         .build()).toList()
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
@@ -225,7 +225,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .srNo(index.incrementAndGet())
                         .expenseId(data.getId())
                         .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
-                        .totalAmount(data.getTotalAmount())
+                        .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
                         .build()).toList()
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
@@ -268,7 +268,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .srNo(index.incrementAndGet())
                         .expenseId(result.getId())
                         .expenseDate(Constants.toExpenseDate(result.getInsertedTime()))
-                        .totalAmount(result.getTotalAmount())
+                        .totalAmount(result.getTotalAmount()!=null?Constants.toINRFormat(result.getTotalAmount()):Constants.DASH)
                         .build()).toList()
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
@@ -307,7 +307,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .srNo(index.incrementAndGet())
                         .expenseId(data.getId())
                         .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
-                        .totalAmount(data.getTotalAmount())
+                        .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
                         .build()).toList()
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
@@ -323,13 +323,18 @@ public class ExpenseServiceImpl implements ExpenseService {
     public DashboardCountDto getDashboardCounts() {
         Integer allExpenseCount = expensesRepository.getAllExpenseCount();
         Integer monthlyExpenseCount = expensesRepository.expenseExists(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
+        Double monthlyExpenseTotal = expensesRepository.getTotalAmountSum(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
+        Double yearlyExpenseTotal = expensesRepository.getTotalAmountSum(Constants.firstDayOfYear(),Constants.lastDayOfYear());
         return DashboardCountDto.builder()
                 .allExpenseCount(allExpenseCount)
                 .monthlyExpenseCount(monthlyExpenseCount)
-                .monthlyExpenseTotal(expensesRepository.getTotalAmountSum(Constants.firstDayOfMonth(),Constants.lastDayOfMonth()))
-                .yearlyExpenseTotal(expensesRepository.getTotalAmountSum(Constants.firstDayOfYear(),Constants.lastDayOfYear()))
+                .monthlyExpenseTotal(setTotalAmountSum(monthlyExpenseTotal))
+                .yearlyExpenseTotal(setTotalAmountSum(yearlyExpenseTotal))
                 .documentCount(documentService.documentCount())
                 .build();
+    }
+    private String setTotalAmountSum(Double amount) {
+        return amount!=null?Constants.toINRFormat(amount):Constants.DASH;
     }
 
     private void isExpenseExist(){

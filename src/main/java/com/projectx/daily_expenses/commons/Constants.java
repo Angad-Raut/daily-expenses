@@ -2,6 +2,7 @@ package com.projectx.daily_expenses.commons;
 
 import org.springframework.stereotype.Component;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
+import java.util.Locale;
 
 @Component
 public final class Constants {
@@ -99,5 +101,11 @@ public final class Constants {
         String convertedDate = ISOFormat.format(beforeDate);
         Date finalDate = ISOFormat.parse(convertedDate);
         return localDateTimeToDate(dateToLocalDateTime(finalDate).with(LocalTime.MAX));
+    }
+    public static String toINRFormat(Double amount) {
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+        format.setCurrency(java.util.Currency.getInstance("INR"));
+        String formattedAmount = format.format(amount);
+        return formattedAmount;
     }
 }

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class DashboardCountDto {
     private Integer monthlyExpenseCount;
     private Integer allExpenseCount;
-    private Double monthlyExpenseTotal;
-    private Double yearlyExpenseTotal;
+    private String monthlyExpenseTotal;
+    private String yearlyExpenseTotal;
     private Integer documentCount;
 }

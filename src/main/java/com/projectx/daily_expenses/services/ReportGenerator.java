@@ -95,7 +95,7 @@ public class ReportGenerator {
                 sb.append("<td>" + reportDto.getItemCount() + "</td>");
                 sb.append("<td>" + reportDto.getTotalAmount() + "</td>");
                 sb.append("</tr>");
-                finalTotal = finalTotal+reportDto.getTotalAmount();
+                finalTotal = finalTotal+reportDto.getTotal();
             }
             sb.append("<tr>");
             sb.append("<td colspan='3' align='right'><b>Total</b></td>");

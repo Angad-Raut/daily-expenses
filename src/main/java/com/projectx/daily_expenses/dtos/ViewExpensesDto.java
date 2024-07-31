@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ViewExpensesDto {
     private Integer srNo;
     private Long expenseId;
-    private Double totalAmount;
+    private String totalAmount;
     private String expenseDate;
 }

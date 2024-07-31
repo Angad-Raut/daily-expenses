@@ -14,7 +14,8 @@ import java.util.List;
 public class ViewReportDto {
     private Integer srNo;
     private Long expenseId;
-    private Double totalAmount;
+    private String totalAmount;
+    private Double total;
     private String expenseDate;
     private Integer itemCount;
     List<ViewExpenseItemsDto> itemsList = new ArrayList<>();

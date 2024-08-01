@@ -1,4 +1,3 @@
-var expenseItemsList=[];
 $(document).ready(function(){
     if (localStorage.getItem("fullName")==null && localStorage.getItem("userId")==null){
           window.open("../../login.html","_self");
@@ -86,7 +85,6 @@ function getMonthlyExpensesReportPages(monthName){
                     success : function(data) {
                         $("#download_txt").show();
                         $("#table_div").show();
-                        expenseItemsList = data.result;
                         data.iTotalRecords = data.result.totalElements;
                         data.iTotalDisplayRecords = data.result.totalElements;
                         fnCallback(data);
@@ -111,7 +109,7 @@ function getMonthlyExpensesReportPages(monthName){
                 }, {
                     mDataProp : function(data){
                           return '<button class="btn bg-primary btn-xs" type="button" data-toggle="modal" data-target="#viewItemModal" onclick="getExpenseItems('+data.expenseId+')"><b>View</b></button>&nbsp;&nbsp;'+
-                                  '<button class="btn bg-primary btn-xs" type="button" onclick="generateReportByExpenseId('+data.expenseId+','+data.expenseDate+')"><b>Download</b></button>';
+                                 '<button class="btn bg-primary btn-xs" type="button" onclick="generateReportByExpenseId('+data.expenseId+')"><b>Download</b></button>';
                     },
                     "bSortable": false
                 }],
@@ -149,7 +147,7 @@ function generateMonthReport(formData) {
        });
  }
 
- function generateReportByExpenseId(expenseId,expenseDate) {
+ function generateReportByExpenseId(expenseId) {
         var formData = {entityId:expenseId};
         $.ajax({
         		type : "POST",
@@ -159,12 +157,10 @@ function generateMonthReport(formData) {
         		data : JSON.stringify(formData),
         		success : function(data) {
         			if(data.result!=null){
-        			    if (data.result!=null) {
                          var link = document.createElement('a');
-                         link.href = "data:application/pdf;base64,"+data.result;
-                         link.download = 'ExpenseReport('+expenseDate+').pdf';
+                         link.href = "data:application/pdf;base64,"+data.result.byteData;
+                         link.download = data.result.expenseDate+' ExpenseReport.pdf';
                          link.dispatchEvent(new MouseEvent('click'));
-        				}
         			}else{
         			    swal("Error",data.errorMessage, "error");
         			}

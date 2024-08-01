@@ -2,6 +2,7 @@ package com.projectx.daily_expenses.controllers;
 
 import com.projectx.daily_expenses.commons.*;
 import com.projectx.daily_expenses.dtos.MonthRequestDto;
+import com.projectx.daily_expenses.dtos.SingleReportDto;
 import com.projectx.daily_expenses.dtos.ViewReportDto;
 import com.projectx.daily_expenses.services.ReportService;
 import jakarta.validation.Valid;
@@ -34,9 +35,9 @@ public class ReportController {
     }
 
     @PostMapping("/downloadReportByExpenseId")
-    public ResponseEntity<ResponseDto<byte[]>> downloadReportByExpenseId(@Valid @RequestBody EntityIdDto dto) {
+    public ResponseEntity<ResponseDto<SingleReportDto>> downloadReportByExpenseId(@Valid @RequestBody EntityIdDto dto) {
         try {
-            byte[] result = reportService.generateReportByExpenseId(dto);
+            SingleReportDto result = reportService.generateReportByExpenseId(dto);
             return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
         } catch (ResourceNotFoundException | InvalidDataException | ParseException e) {
             return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);

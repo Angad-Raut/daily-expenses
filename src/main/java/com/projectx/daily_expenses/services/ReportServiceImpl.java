@@ -5,6 +5,7 @@ import com.projectx.daily_expenses.commons.DateRangeDto;
 import com.projectx.daily_expenses.commons.EntityIdDto;
 import com.projectx.daily_expenses.commons.ResourceNotFoundException;
 import com.projectx.daily_expenses.dtos.MonthRequestDto;
+import com.projectx.daily_expenses.dtos.SingleReportDto;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
 import com.projectx.daily_expenses.dtos.ViewReportDto;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
@@ -46,7 +47,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public byte[] generateReportByExpenseId(EntityIdDto dto) throws ResourceNotFoundException, ParseException {
+    public SingleReportDto generateReportByExpenseId(EntityIdDto dto) throws ResourceNotFoundException, ParseException {
         try {
             byte[] byteData = null;
             ExpensesDetails details = expensesRepository.getExpensesById(dto.getEntityId());
@@ -70,9 +71,13 @@ public class ReportServiceImpl implements ReportService {
                             .toList())
                     .build();
             if (reportDto!=null) {
-                return ReportGenerator.generateReportByExpenseId(reportDto);
+                byte[] data = ReportGenerator.generateReportByExpenseId(reportDto);
+                return SingleReportDto.builder()
+                        .byteData(data)
+                        .expenseDate(reportDto.getExpenseDate())
+                        .build();
             } else {
-                return byteData;
+                return new SingleReportDto();
             }
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());

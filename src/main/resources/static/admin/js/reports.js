@@ -47,16 +47,6 @@ $("#search_txt").click(function(){
         flag=1;
         return false;
     }
-    if (startDate>endDate) {
-        swal("Warning!", "From Date should not be greater than To Date!", "warning");
-        flag=1;
-        return false;
-    }
-    if (endDate<startDate) {
-        swal("Warning!", "To Date should not be less than From Date!", "warning");
-        flag=1;
-        return false;
-    }
     getAllExpensesPagesWithDateRangeForReport(startDate,endDate);
 });
 
@@ -71,16 +61,6 @@ $("#download_txt").click(function(){
     }
     if (startDate=="") {
         swal("Warning!", "Please select to date!", "warning");
-        flag=1;
-        return false;
-    }
-    if (startDate>endDate) {
-        swal("Warning!", "From Date should not be greater than To Date!", "warning");
-        flag=1;
-        return false;
-    }
-    if (endDate<startDate) {
-        swal("Warning!", "To Date should not be less than From Date!", "warning");
         flag=1;
         return false;
     }
@@ -185,7 +165,7 @@ function generateReportWithDateRange(formData) {
        });
  }
 
- function generateReportByExpenseId(expenseId,expenseDate) {
+ function generateReportByExpenseId(expenseId) {
         var formData = {entityId:expenseId};
         $.ajax({
         		type : "POST",
@@ -195,12 +175,10 @@ function generateReportWithDateRange(formData) {
         		data : JSON.stringify(formData),
         		success : function(data) {
         			if(data.result!=null){
-        			    if (data.result!=null) {
                          var link = document.createElement('a');
-                         link.href = "data:application/pdf;base64,"+data.result;
-                         link.download = 'ExpenseReport('+expenseDate+').pdf';
+                         link.href = "data:application/pdf;base64,"+data.result.byteData;
+                         link.download = data.result.expenseDate+' ExpenseReport.pdf';
                          link.dispatchEvent(new MouseEvent('click'));
-        				}
         			}else{
         			    swal("Error",data.errorMessage, "error");
         			}

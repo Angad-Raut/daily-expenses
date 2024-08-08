@@ -5,6 +5,7 @@ import com.projectx.daily_expenses.dtos.*;
 import com.projectx.daily_expenses.entities.ExpenseItems;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
 import com.projectx.daily_expenses.repositories.ExpensesRepository;
+import com.projectx.daily_expenses.repositories.IncomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,10 +18,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -32,6 +30,9 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private IncomeService incomeService;
 
     @Override
     public Boolean createExpense(ExpenseDto expenseDto)
@@ -197,7 +198,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(expensesList)
+                .content(Collections.singletonList(expensesList))
                 .build():new PageResponseDto();
     }
 
@@ -233,7 +234,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(expensesList)
+                .content(Collections.singletonList(expensesList))
                 .build():new PageResponseDto();
     }
 
@@ -276,7 +277,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(expensesList)
+                .content(Collections.singletonList(expensesList))
                 .build():new PageResponseDto();
     }
 
@@ -315,7 +316,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(expensesList)
+                .content(Collections.singletonList(expensesList))
                 .build():new PageResponseDto();
     }
 
@@ -331,6 +332,8 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .monthlyExpenseTotal(setTotalAmountSum(monthlyExpenseTotal))
                 .yearlyExpenseTotal(setTotalAmountSum(yearlyExpenseTotal))
                 .documentCount(documentService.documentCount())
+                .incomeSum(incomeService.getIncomeSum())
+                .incomeCount(incomeService.getIncomeCount())
                 .build();
     }
     private String setTotalAmountSum(Double amount) {

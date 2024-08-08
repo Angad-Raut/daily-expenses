@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PageResponseDto {
-    private List<ViewExpensesDto> content;
+public class PageResponseDto<T> {
+    private List<T> content;
     private int pageNo;
     private int pageSize;
     private long totalElements;

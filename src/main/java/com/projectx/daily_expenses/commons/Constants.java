@@ -29,9 +29,14 @@ public final class Constants {
     public static final String INVALID_CREDENTIALS="Invalid username or password!!";
     public static final String DOCUMENT_ALREADY_EXIST="This document already exists in the system!!";
     public static final String DOCUMENT_NOT_FOUND="Document not present in the system!!";
+    public static final String INCOME_DETAILS_NOT_EXISTS="Income details not present in the system!!";
+    public static final String INCOME_DETAILS_ALREADY_EXISTS="Income details already exists in the system!!";
+    public static final String INCOME_TYPE_NOT_CHANGED="Income type can not be change!!";
     public static final String DASH="-";
     public static final String OPEN="Open";
     public static final String CLOSE="Closed";
+    public static final String SALARY_TYPE="SALARY";
+    public static final String OTHER_TYPE="OTHER";
     public static final String ISO_DATE_FORMAT="yyyy-MM-dd'T'HH:mm:ssZ";
     public static final String VIEW_DATE_FORMAT="dd MMMM yyyy";
     public static final String toExpenseDate(Date expenseDate) {

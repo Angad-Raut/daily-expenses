@@ -1,0 +1,81 @@
+package com.projectx.daily_expenses.controllers;
+
+import com.projectx.daily_expenses.commons.*;
+import com.projectx.daily_expenses.dtos.IncomeDto;
+import com.projectx.daily_expenses.services.IncomeService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/api/incomes")
+public class IncomeController {
+
+    @Autowired
+    private IncomeService incomeService;
+
+    @PostMapping(value = "/addUpdateIncome")
+    public ResponseEntity<ResponseDto<Boolean>> addUpdateIncome(@RequestBody IncomeDto incomeDto) {
+        try {
+            Boolean result = incomeService.addUpdateIncome(incomeDto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.CREATED);
+        } catch (AlreadyExistsException | InvalidDataException | ParseException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/getById")
+    public ResponseEntity<ResponseDto<IncomeDto>> getById(@RequestBody EntityIdDto entityIdDto) {
+        try {
+            IncomeDto result = incomeService.getById(entityIdDto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.CREATED);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping(value = "/getIncomeTypesDropDown")
+    public ResponseEntity<ResponseDto<List<EntityNameAndValueDto>>> getIncomeTypesDropDown() {
+        try {
+            List<EntityNameAndValueDto> result = incomeService.getIncomeTypesDropDown();
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/updateIncomeStatusById")
+    public ResponseEntity<ResponseDto<Boolean>> updateIncomeStatusById(@RequestBody EntityIdDto entityIdDto) {
+        try {
+            Boolean result = incomeService.updateStatus(entityIdDto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/deleteIncomeById")
+    public ResponseEntity<ResponseDto<Boolean>> deleteIncomeById(@RequestBody EntityIdDto entityIdDto) {
+        try {
+            Boolean result = incomeService.deleteById(entityIdDto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/getAllIncomesPages")
+    public ResponseEntity<ResponseDto<PageResponseDto>> getAllIncomesPages(@Valid @RequestBody PageRequestDto dto) {
+        try {
+            PageResponseDto result = incomeService.getAllIncomes(dto);
+            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+}

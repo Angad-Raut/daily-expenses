@@ -15,4 +15,6 @@ public class DashboardCountDto {
     private String monthlyExpenseTotal;
     private String yearlyExpenseTotal;
     private Integer documentCount;
+    private Integer incomeCount;
+    private String incomeSum;
 }

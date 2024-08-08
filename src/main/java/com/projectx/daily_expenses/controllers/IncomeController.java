@@ -70,9 +70,9 @@ public class IncomeController {
     }
 
     @PostMapping(value = "/getAllIncomesPages")
-    public ResponseEntity<ResponseDto<PageResponseDto>> getAllIncomesPages(@Valid @RequestBody PageRequestDto dto) {
+    public ResponseEntity<ResponseDto<PaginitionResponseDto>> getAllIncomesPages(@Valid @RequestBody PageRequestDto dto) {
         try {
-            PageResponseDto result = incomeService.getAllIncomes(dto);
+            PaginitionResponseDto result = incomeService.getAllIncomes(dto);
             return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);

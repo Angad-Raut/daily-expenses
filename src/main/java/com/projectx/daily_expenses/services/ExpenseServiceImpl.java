@@ -198,7 +198,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(Collections.singletonList(expensesList))
+                .content(expensesList)
                 .build():new PageResponseDto();
     }
 
@@ -234,7 +234,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(Collections.singletonList(expensesList))
+                .content(expensesList)
                 .build():new PageResponseDto();
     }
 
@@ -277,7 +277,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(Collections.singletonList(expensesList))
+                .content(expensesList)
                 .build():new PageResponseDto();
     }
 
@@ -316,7 +316,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .pageSize(expenses.getSize())
                 .totalPages(expenses.getTotalPages())
                 .totalElements(expenses.getTotalElements())
-                .content(Collections.singletonList(expensesList))
+                .content(expensesList)
                 .build():new PageResponseDto();
     }
 

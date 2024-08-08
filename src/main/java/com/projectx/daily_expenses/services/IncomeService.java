@@ -12,7 +12,7 @@ public interface IncomeService {
     IncomeDto getById(EntityIdDto dto)throws ResourceNotFoundException;
     List<EntityNameAndValueDto> getIncomeTypesDropDown();
     Boolean updateStatus(EntityIdDto dto)throws ResourceNotFoundException;
-    PageResponseDto getAllIncomes(PageRequestDto dto);
+    PaginitionResponseDto getAllIncomes(PageRequestDto dto);
     Boolean deleteById(EntityIdDto dto)throws ResourceNotFoundException;
     Integer getIncomeCount();
     String getIncomeSum();

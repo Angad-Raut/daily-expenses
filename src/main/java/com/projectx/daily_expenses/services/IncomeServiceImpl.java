@@ -103,7 +103,7 @@ public class IncomeServiceImpl implements IncomeService {
     }
 
     @Override
-    public PageResponseDto getAllIncomes(PageRequestDto dto) {
+    public PaginitionResponseDto getAllIncomes(PageRequestDto dto) {
         String sortParameter = "";
         if (dto.getSortParam()!=null && dto.getSortParam().equals("srNo")) {
             sortParameter = "id";
@@ -132,13 +132,13 @@ public class IncomeServiceImpl implements IncomeService {
                         .incomeDate(Constants.toExpenseDate(data.getIncomeDate()))
                         .build()).toList()
                 :new ArrayList<>();
-        return !incomesList.isEmpty()?PageResponseDto.builder()
+        return !incomesList.isEmpty()?PaginitionResponseDto.builder()
                 .pageNo(incomes.getNumber())
                 .pageSize(incomes.getSize())
                 .totalPages(incomes.getTotalPages())
                 .totalElements(incomes.getTotalElements())
-                .content(Collections.singletonList(incomesList))
-                .build():new PageResponseDto();
+                .content(incomesList)
+                .build():new PaginitionResponseDto();
     }
 
     @Override

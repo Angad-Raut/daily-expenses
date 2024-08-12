@@ -32,10 +32,17 @@ public final class Constants {
     public static final String INCOME_DETAILS_NOT_EXISTS="Income details not present in the system!!";
     public static final String INCOME_DETAILS_ALREADY_EXISTS="Income details already exists in the system!!";
     public static final String INCOME_TYPE_NOT_CHANGED="Income type can not be change!!";
+    public static final String COMPANY_DETAILS_NOT_EXISTS="Company details not present!!";
+    public static final String COMPANY_DETAILS_ALREADY_EXISTS="Company details already exists!!";
     public static final String DASH="-";
     public static final String OPEN="Open";
     public static final String CLOSE="Closed";
     public static final String SALARY_TYPE="SALARY";
+    public static final String FORM_16_TYPE="FORM_16";
+    public static final String OFFER_LETTER_TYPE="OFFER_LETTER";
+    public static final String EXPERIENCE_LETTER_TYPE="EXPERIENCE_LETTER";
+    public static final String SERVICE_LETTER_TYPE="SERVICE_LETTER";
+    public static final String APPOINTMENT_LETTER_TYPE="APPOINTMENT_LETTER";
     public static final String OTHER_TYPE="OTHER";
     public static final String ISO_DATE_FORMAT="yyyy-MM-dd'T'HH:mm:ssZ";
     public static final String VIEW_DATE_FORMAT="dd MMMM yyyy";

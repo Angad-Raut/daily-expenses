@@ -1,7 +1,6 @@
 package com.projectx.daily_expenses.controllers;
 
 import com.projectx.daily_expenses.commons.*;
-import com.projectx.daily_expenses.dtos.DashboardCountDto;
 import com.projectx.daily_expenses.dtos.ExpenseDto;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
 import com.projectx.daily_expenses.dtos.ViewExpensesDto;
@@ -76,16 +75,6 @@ public class ExpenseController {
     public ResponseEntity<ResponseDto<List<ViewExpensesDto>>> getAllExpenses() {
         try {
             List<ViewExpensesDto> result = expenseService.getAllExpenses();
-            return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
-        }
-    }
-
-    @GetMapping(value = "/getDashboardCount")
-    public ResponseEntity<ResponseDto<DashboardCountDto>> getDashboardCount() {
-        try {
-            DashboardCountDto result = expenseService.getDashboardCounts();
             return new ResponseEntity<>(new ResponseDto<>(result,null,null), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);

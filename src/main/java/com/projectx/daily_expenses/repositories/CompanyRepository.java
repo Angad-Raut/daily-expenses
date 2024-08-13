@@ -38,4 +38,6 @@ public interface CompanyRepository extends JpaRepository<CompanyDetails,Long> {
 
     @Query(value = "select c.id,c.company_name from company_details c",nativeQuery = true)
     List<Object[]> getCompanyDropDown();
+    @Query(value = "select count(*) from company_details",nativeQuery = true)
+    Integer getCompanyCount();
 }

@@ -2,12 +2,10 @@ package com.projectx.daily_expenses.services;
 
 
 import com.projectx.daily_expenses.commons.*;
-import com.projectx.daily_expenses.dtos.DashboardCountDto;
 import com.projectx.daily_expenses.dtos.ExpenseDto;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
 import com.projectx.daily_expenses.dtos.ViewExpensesDto;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
-import org.springframework.data.domain.Page;
 
 import java.text.ParseException;
 import java.util.List;
@@ -26,5 +24,8 @@ public interface ExpenseService {
     PageResponseDto getAllExpensesPages(PageRequestDto dto);
     PageResponseDto getMonthlyExpensesPages(MonthlyPageRequestDto dto);
     PageResponseDto getAllExpensesPagesWithDateRangeForReport(DateRangePageRequestDto dto) throws ParseException;
-    DashboardCountDto getDashboardCounts();
+    Integer getMonthlyExpenseCount();
+    Integer getAllExpenseCount();
+    String getMonthlyExpenseTotal();
+    String getYearlyExpenseTotal();
 }

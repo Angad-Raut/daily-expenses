@@ -34,7 +34,7 @@ public class CompanyServiceImpl implements CompanyService {
                     .companyLogo(dto.getCompanyLogo().getBytes())
                     .status(true)
                     .startDate(Constants.getISODate(dto.getStartDate()))
-                    .endDate(Constants.getISODate(dto.getEndDate()))
+                    .endDate(dto.getEndDate()!=null?Constants.getISODate(dto.getEndDate()):null)
                     .build();
         } else {
             companyDetails = companyRepository.getById(dto.getId());
@@ -45,8 +45,10 @@ public class CompanyServiceImpl implements CompanyService {
             if (!dto.getCompanyAddress().equals(companyDetails.getCompanyAddress())) {
                 companyDetails.setCompanyAddress(dto.getCompanyAddress());
             }
-            if (!dto.getCompanyLogo().getBytes().equals(companyDetails.getCompanyLogo())) {
-                companyDetails.setCompanyLogo(dto.getCompanyLogo().getBytes());
+            if (dto.getCompanyLogo()!=null) {
+                if (!dto.getCompanyLogo().getBytes().equals(companyDetails.getCompanyLogo())) {
+                    companyDetails.setCompanyLogo(dto.getCompanyLogo().getBytes());
+                }
             }
             if (dto.getStartDate()!=null && companyDetails.getStartDate()!=null) {
                 if (!dto.getStartDate().equals(Constants.toExpenseDate(companyDetails.getStartDate()))) {
@@ -59,6 +61,8 @@ public class CompanyServiceImpl implements CompanyService {
                 }
             } else if (dto.getEndDate()!=null && companyDetails.getEndDate()==null) {
                 companyDetails.setEndDate(Constants.getISODate(dto.getEndDate()));
+            } else if (dto.getEndDate()==null && companyDetails.getEndDate()!=null) {
+                companyDetails.setEndDate(null);
             }
         }
         try {
@@ -85,7 +89,7 @@ public class CompanyServiceImpl implements CompanyService {
                     .companyAddress(companyDetails.getCompanyAddress())
                     .companyLogo(companyDetails.getCompanyLogo())
                     .startDate(Constants.toExpenseDate(companyDetails.getStartDate()))
-                    .endDate(Constants.toExpenseDate(companyDetails.getEndDate()))
+                    .endDate(companyDetails.getEndDate()!=null?Constants.toExpenseDate(companyDetails.getEndDate()):Constants.DASH)
                     .build();
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
@@ -160,7 +164,8 @@ public class CompanyServiceImpl implements CompanyService {
                 documents.add(new CompanyDocuments(dto.getDocumentType(),new Date(),details.getId(),dto.getDocumentFile().getBytes()));
                 details.setCompanyDocuments(documents);
             }
-            return details.getCompanyDocuments()!=null && !details.getCompanyDocuments().isEmpty()?true:false;
+            CompanyDetails companyDetails = companyRepository.save(details);
+            return companyDetails.getCompanyDocuments()!=null && !companyDetails.getCompanyDocuments().isEmpty()?true:false;
         } catch (ResourceNotFoundException | IOException e) {
             throw new ResourceNotFoundException(e.getMessage());
         }
@@ -232,6 +237,12 @@ public class CompanyServiceImpl implements CompanyService {
                         .entityValue(data[1]!=null?data[1].toString():null)
                         .build())
                 .toList():new ArrayList<>();
+    }
+
+    @Override
+    public Integer getCompanyCount() {
+        Integer count = companyRepository.getCompanyCount();
+        return count!=null?count:0;
     }
 
     private void isCompanyExists(String companyName) {

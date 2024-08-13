@@ -321,21 +321,29 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public DashboardCountDto getDashboardCounts() {
-        Integer allExpenseCount = expensesRepository.getAllExpenseCount();
+    public Integer getMonthlyExpenseCount() {
         Integer monthlyExpenseCount = expensesRepository.expenseExists(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
-        Double monthlyExpenseTotal = expensesRepository.getTotalAmountSum(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
-        Double yearlyExpenseTotal = expensesRepository.getTotalAmountSum(Constants.firstDayOfYear(),Constants.lastDayOfYear());
-        return DashboardCountDto.builder()
-                .allExpenseCount(allExpenseCount)
-                .monthlyExpenseCount(monthlyExpenseCount)
-                .monthlyExpenseTotal(setTotalAmountSum(monthlyExpenseTotal))
-                .yearlyExpenseTotal(setTotalAmountSum(yearlyExpenseTotal))
-                .documentCount(documentService.documentCount())
-                .incomeSum(incomeService.getIncomeSum())
-                .incomeCount(incomeService.getIncomeCount())
-                .build();
+        return monthlyExpenseCount!=null?monthlyExpenseCount:0;
     }
+
+    @Override
+    public Integer getAllExpenseCount() {
+        Integer allExpenseCount = expensesRepository.getAllExpenseCount();
+        return allExpenseCount!=null?allExpenseCount:0;
+    }
+
+    @Override
+    public String getMonthlyExpenseTotal() {
+        Double monthlyExpenseTotal = expensesRepository.getTotalAmountSum(Constants.firstDayOfMonth(),Constants.lastDayOfMonth());
+        return monthlyExpenseTotal!=null?setTotalAmountSum(monthlyExpenseTotal):setTotalAmountSum(0.0);
+    }
+
+    @Override
+    public String getYearlyExpenseTotal() {
+        Double yearlyExpenseTotal = expensesRepository.getTotalAmountSum(Constants.firstDayOfYear(),Constants.lastDayOfYear());
+        return yearlyExpenseTotal!=null?setTotalAmountSum(yearlyExpenseTotal):setTotalAmountSum(0.0);
+    }
+
     private String setTotalAmountSum(Double amount) {
         return amount!=null?Constants.toINRFormat(amount):Constants.DASH;
     }

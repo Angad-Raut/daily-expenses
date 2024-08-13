@@ -17,4 +17,5 @@ public class DashboardCountDto {
     private Integer documentCount;
     private Integer incomeCount;
     private String incomeSum;
+    private Integer companyCount;
 }

@@ -17,4 +17,5 @@ public interface CompanyService {
     Boolean updateStatus(EntityIdDto dto)throws ResourceNotFoundException;
     CompanyDocumentPageResponseDto getCompanyAllDocuments(EntityIdWithPageRequestDto dto)throws ResourceNotFoundException;
     List<EntityIdAndValueDto> getCompanyDropDown();
+    Integer getCompanyCount();
 }

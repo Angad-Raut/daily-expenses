@@ -23,7 +23,7 @@ public class CompanyDetails {
     private String companyName;
     @Column(name = "company_address")
     private String companyAddress;
-    @Column(name = "company_logo")
+    @Column(name = "company_logo",columnDefinition = "LONGBLOB", length = 1000)
     private byte[] companyLogo;
     @Column(name = "start_date")
     private Date startDate;

@@ -6,6 +6,7 @@ import com.projectx.daily_expenses.services.CompanyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +21,9 @@ public class CompanyDetailsController {
     @Autowired
     private CompanyService companyService;
 
-    @PostMapping(value = "/addUpdate")
+    @PostMapping(value = "/addUpdate",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<ResponseDto<Boolean>> addUpdate(
-            @Valid @ModelAttribute CompanyDto dto) {
+            @ModelAttribute @Valid CompanyDto dto) {
         try {
             Boolean data = companyService.addUpdate(dto);
             return new ResponseEntity<>(new ResponseDto<>(data,null,
@@ -110,9 +111,9 @@ public class CompanyDetailsController {
         }
     }
 
-    @PostMapping(value = "/addDocumentByCompanyId")
+    @PostMapping(value = "/addDocumentByCompanyId",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<ResponseDto<Boolean>> addDocumentByCompanyId(
-            @Valid @ModelAttribute CompanyDocDto dto) {
+            @ModelAttribute @Valid CompanyDocDto dto) {
         try {
             Boolean data = companyService.addDocumentByCompanyId(dto);
             return new ResponseEntity<>(new ResponseDto<>(data,null,

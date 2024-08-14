@@ -1,10 +1,12 @@
 package com.projectx.daily_expenses.controllers;
 
+import com.projectx.daily_expenses.commons.EntityIdDto;
 import com.projectx.daily_expenses.commons.EntityIdWithPageRequestDto;
 import com.projectx.daily_expenses.commons.ResourceNotFoundException;
 import com.projectx.daily_expenses.commons.ResponseDto;
 import com.projectx.daily_expenses.dtos.CompanyDocDto;
 import com.projectx.daily_expenses.dtos.CompanyDocumentPageResponseDto;
+import com.projectx.daily_expenses.dtos.FileDownloadDto;
 import com.projectx.daily_expenses.services.CompanyDocumentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,32 @@ public class CompanyDocumentController {
             return new ResponseEntity<>(new ResponseDto<>(data,null,
                     null),HttpStatus.OK);
         } catch (ResourceNotFoundException | IOException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/deleteDocumentById")
+    public ResponseEntity<ResponseDto<Boolean>> deleteDocumentById(
+            @RequestBody @Valid EntityIdDto dto) {
+        try {
+            Boolean data = companyDocumentService.deleteDocument(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,
+                    null),HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),
+                    null), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping(value = "/downloadDocumentFile")
+    public ResponseEntity<ResponseDto<FileDownloadDto>> downloadDocumentFile(
+            @RequestBody @Valid EntityIdDto dto) {
+        try {
+            FileDownloadDto data = companyDocumentService.downloadFile(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,
+                    null),HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
             return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),
                     null), HttpStatus.OK);
         }

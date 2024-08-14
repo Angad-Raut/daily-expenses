@@ -9,12 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ViewCompanyDocumentDto {
-    private Integer srNo;
-    private Long documentId;
-    private Long customerId;
-    private String companyName;
-    private String documentType;
-    private String uploadedDate;
+public class FileDownloadDto {
     private String contentType;
+    private String documentType;
+    private byte[] documentFile;
 }

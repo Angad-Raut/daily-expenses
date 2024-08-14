@@ -2,6 +2,7 @@ package com.projectx.daily_expenses.services;
 
 import com.projectx.daily_expenses.commons.*;
 import com.projectx.daily_expenses.dtos.*;
+import com.projectx.daily_expenses.entities.CompanyDetails;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -13,9 +14,8 @@ public interface CompanyService {
     EditCompanyDto getById(EntityIdDto dto)throws ResourceNotFoundException;
     List<EntityNameAndValueDto> getCompanyDocumentTypeDropDown();
     CompanyPageResponseDto getAllCompanies(PageRequestDto dto);
-    Boolean addDocumentByCompanyId(CompanyDocDto dto)throws ResourceNotFoundException,IOException;
     Boolean updateStatus(EntityIdDto dto)throws ResourceNotFoundException;
-    CompanyDocumentPageResponseDto getCompanyAllDocuments(EntityIdWithPageRequestDto dto)throws ResourceNotFoundException;
     List<EntityIdAndValueDto> getCompanyDropDown();
     Integer getCompanyCount();
+    CompanyDetails getCompanyDetailsById(Long companyId);
 }

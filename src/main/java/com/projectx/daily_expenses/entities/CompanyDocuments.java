@@ -1,8 +1,6 @@
 package com.projectx.daily_expenses.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,15 +11,23 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Embeddable
+@Entity
+@Table(name = "company_documents")
 public class CompanyDocuments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @Column(name = "document_type")
     private String documentType;
     @Column(name = "uploaded_date")
     private Date uploadedDate;
-    @Column(name = "company_id")
-    private Long companyId;
     @Lob
-    @Column(name = "document_file", columnDefinition = "LONGBLOB", length = 1500)
+    @Column(name = "document_file", columnDefinition = "LONGBLOB", length = 2000)
     private byte[] documentFile;
+    @Column(name = "content_type")
+    private String contentType;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "company_id", nullable = true)
+    private CompanyDetails companyDetails;
 }

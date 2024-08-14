@@ -97,30 +97,4 @@ public class CompanyDetailsController {
                     null), HttpStatus.OK);
         }
     }
-
-    @PostMapping(value = "/getCompanyAllDocuments")
-    public ResponseEntity<ResponseDto<CompanyDocumentPageResponseDto>> getCompanyAllDocuments(
-            @Valid @RequestBody EntityIdWithPageRequestDto dto) {
-        try {
-            CompanyDocumentPageResponseDto data = companyService.getCompanyAllDocuments(dto);
-            return new ResponseEntity<>(new ResponseDto<>(data,null,
-                    null),HttpStatus.OK);
-        } catch (ResourceNotFoundException e) {
-            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),
-                    null), HttpStatus.OK);
-        }
-    }
-
-    @PostMapping(value = "/addDocumentByCompanyId",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<ResponseDto<Boolean>> addDocumentByCompanyId(
-            @ModelAttribute @Valid CompanyDocDto dto) {
-        try {
-            Boolean data = companyService.addDocumentByCompanyId(dto);
-            return new ResponseEntity<>(new ResponseDto<>(data,null,
-                    null),HttpStatus.OK);
-        } catch (ResourceNotFoundException | IOException e) {
-            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),
-                    null), HttpStatus.OK);
-        }
-    }
 }

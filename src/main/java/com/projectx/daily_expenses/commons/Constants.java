@@ -33,6 +33,7 @@ public final class Constants {
     public static final String INCOME_DETAILS_ALREADY_EXISTS="Income details already exists in the system!!";
     public static final String INCOME_TYPE_NOT_CHANGED="Income type can not be change!!";
     public static final String COMPANY_DETAILS_NOT_EXISTS="Company details not present!!";
+    public static final String COMPANY_DOCUMENT_NOT_EXISTS="Company document not present!!";
     public static final String COMPANY_DETAILS_ALREADY_EXISTS="Company details already exists!!";
     public static final String DASH="-";
     public static final String OPEN="Open";

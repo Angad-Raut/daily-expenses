@@ -31,7 +31,6 @@ public class CompanyDetails {
     private Date endDate;
     @Column(name = "status")
     private Boolean status;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "company_docs", joinColumns = @JoinColumn(name = "comp_id"))
+    @OneToMany(mappedBy = "companyDetails", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<CompanyDocuments> companyDocuments=new ArrayList<>();
 }

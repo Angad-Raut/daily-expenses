@@ -1,7 +1,6 @@
 package com.projectx.daily_expenses.repositories;
 
 import com.projectx.daily_expenses.entities.CompanyDetails;
-import com.projectx.daily_expenses.entities.CompanyDocuments;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,12 +25,6 @@ public interface CompanyRepository extends JpaRepository<CompanyDetails,Long> {
 
     @Query(value = "select * from company_details",nativeQuery = true)
     Page<CompanyDetails> getAllCompaniesPages(Pageable pageable);
-
-    @Query(value = "select * from company_docs where company_id=companyId",nativeQuery = true)
-    Page<CompanyDocuments> getCompanyDocumentsPage(@Param("companyId")Long companyId,Pageable pageable);
-
-    @Query(value = "select * from company_docs",nativeQuery = true)
-    Page<CompanyDocuments> getAllCompanyDocumentsPage(Pageable pageable);
 
     @Query(value = "select company_name from company_details where id=:companyId",nativeQuery = true)
     String getCompanyName(@Param("companyId")Long companyId);

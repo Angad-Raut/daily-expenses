@@ -35,6 +35,7 @@ public final class Constants {
     public static final String COMPANY_DETAILS_NOT_EXISTS="Company details not present!!";
     public static final String COMPANY_DOCUMENT_NOT_EXISTS="Company document not present!!";
     public static final String COMPANY_DETAILS_ALREADY_EXISTS="Company details already exists!!";
+    public static final String EXTERNAL_EXPENSE_NOT_EXISTS="External expense not exists!!";
     public static final String DASH="-";
     public static final String OPEN="Open";
     public static final String CLOSE="Closed";

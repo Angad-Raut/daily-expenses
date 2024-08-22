@@ -1,11 +1,11 @@
 package com.projectx.daily_expenses.controllers;
 
-import com.projectx.daily_expenses.commons.ResponseDto;
+import com.projectx.common.payloads.ResponseDto;
 import com.projectx.daily_expenses.dtos.DashboardCountDto;
-import com.projectx.daily_expenses.services.CompanyService;
-import com.projectx.daily_expenses.services.DocumentService;
+import com.projectx.companies.services.CompanyService;
+import com.projectx.documents.services.DocumentService;
 import com.projectx.daily_expenses.services.ExpenseService;
-import com.projectx.daily_expenses.services.IncomeService;
+import com.projectx.incomes.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.projectx.daily_expenses.respositoriestests;
 
+import com.projectx.common.utils.Constants;
 import com.projectx.daily_expenses.commonUtils.ExpenseUtils;
-import com.projectx.daily_expenses.commons.Constants;
 import com.projectx.daily_expenses.entities.ExpenseItems;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
 import com.projectx.daily_expenses.repositories.ExpensesRepository;

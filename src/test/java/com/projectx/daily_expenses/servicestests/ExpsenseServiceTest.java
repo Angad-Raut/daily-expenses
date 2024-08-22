@@ -1,8 +1,8 @@
 package com.projectx.daily_expenses.servicestests;
 
+import com.projectx.common.payloads.EntityIdDto;
+import com.projectx.common.utils.Constants;
 import com.projectx.daily_expenses.commonUtils.ExpenseUtils;
-import com.projectx.daily_expenses.commons.Constants;
-import com.projectx.daily_expenses.commons.EntityIdDto;
 import com.projectx.daily_expenses.dtos.ExpenseDto;
 import com.projectx.daily_expenses.entities.ExpensesDetails;
 import com.projectx.daily_expenses.repositories.ExpensesRepository;

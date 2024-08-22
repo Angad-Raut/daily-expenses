@@ -1,9 +1,9 @@
 package com.projectx.daily_expenses.services;
 
-import com.projectx.daily_expenses.commons.Constants;
-import com.projectx.daily_expenses.commons.EntityIdDto;
-import com.projectx.daily_expenses.commons.PageRequestDto;
-import com.projectx.daily_expenses.commons.ResourceNotFoundException;
+import com.projectx.common.exceptions.ResourceNotFoundException;
+import com.projectx.common.payloads.EntityIdDto;
+import com.projectx.common.payloads.PageRequestDto;
+import com.projectx.common.utils.Constants;
 import com.projectx.daily_expenses.dtos.*;
 import com.projectx.daily_expenses.entities.ExternalExpenseDetails;
 import com.projectx.daily_expenses.repositories.ExternalExpenseRepository;
@@ -58,7 +58,13 @@ public class ExternalExpenseServiceImpl implements ExternalExpenseService {
             if (!dto.getAmount().equals(externalExpenseDetails.getAmount())) {
                 externalExpenseDetails.setAmount(dto.getAmount());
             }
-            if (!dto.getAmountGivenDate().equals(Constants.toExpenseDate(externalExpenseDetails.getAmountGivenDate()))) {
+            if (dto.getAmountGivenDate()!=null && externalExpenseDetails.getAmountGivenDate()!=null){
+                if (!dto.getAmountGivenDate().equals(Constants.toExpenseDate(externalExpenseDetails.getAmountGivenDate()))) {
+                    externalExpenseDetails.setAmountGivenDate(Constants.getISODate(dto.getAmountGivenDate()));
+                }
+            } else if (dto.getAmountGivenDate()==null && externalExpenseDetails.getAmountGivenDate()!=null) {
+                externalExpenseDetails.setAmountGivenDate(null);
+            } else if (dto.getAmountGivenDate()!=null && externalExpenseDetails.getAmountGivenDate()==null) {
                 externalExpenseDetails.setAmountGivenDate(Constants.getISODate(dto.getAmountGivenDate()));
             }
         }

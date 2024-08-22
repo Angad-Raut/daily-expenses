@@ -1,9 +1,9 @@
 package com.projectx.daily_expenses.controllers;
 
-import com.projectx.daily_expenses.commons.EntityIdDto;
-import com.projectx.daily_expenses.commons.PageRequestDto;
-import com.projectx.daily_expenses.commons.ResourceNotFoundException;
-import com.projectx.daily_expenses.commons.ResponseDto;
+import com.projectx.common.exceptions.ResourceNotFoundException;
+import com.projectx.common.payloads.EntityIdDto;
+import com.projectx.common.payloads.PageRequestDto;
+import com.projectx.common.payloads.ResponseDto;
 import com.projectx.daily_expenses.dtos.ExternalExpenseDto;
 import com.projectx.daily_expenses.dtos.ExternalExpensePageResponseDto;
 import com.projectx.daily_expenses.services.ExternalExpenseService;

@@ -2,8 +2,8 @@ package com.projectx.daily_expenses.controllertests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.projectx.common.payloads.EntityIdDto;
 import com.projectx.daily_expenses.commonUtils.ExpenseUtils;
-import com.projectx.daily_expenses.commons.EntityIdDto;
 import com.projectx.daily_expenses.controllers.ExpenseController;
 import com.projectx.daily_expenses.dtos.ExpenseDto;
 import com.projectx.daily_expenses.services.ExpenseService;

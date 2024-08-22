@@ -1,6 +1,6 @@
 package com.projectx.daily_expenses.services;
 
-import com.projectx.daily_expenses.commons.ReportUtils;
+import com.projectx.common.utils.ReportUtils;
 import com.projectx.daily_expenses.dtos.ViewExpenseItemsDto;
 import com.projectx.daily_expenses.dtos.ViewReportDto;
 import org.springframework.stereotype.Component;

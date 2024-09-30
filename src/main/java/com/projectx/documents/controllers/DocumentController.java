@@ -9,12 +9,12 @@ import com.projectx.documents.payloads.DocumentDto;
 import com.projectx.documents.payloads.DownloadDocDto;
 import com.projectx.documents.payloads.ViewDocumentsDto;
 import com.projectx.documents.services.DocumentService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 

@@ -7,7 +7,6 @@ import com.projectx.common.payloads.ResponseDto;
 import com.projectx.daily_expenses.dtos.ExternalExpenseDto;
 import com.projectx.daily_expenses.dtos.ExternalExpensePageResponseDto;
 import com.projectx.daily_expenses.services.ExternalExpenseService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 
 @RestController

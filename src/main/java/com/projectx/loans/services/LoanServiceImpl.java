@@ -10,7 +10,7 @@ import com.projectx.loans.entities.LoanDetails;
 import com.projectx.loans.payloads.*;
 import com.projectx.loans.repository.EMIDetailsRepository;
 import com.projectx.loans.repository.LoanRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.apache.tomcat.util.bcel.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

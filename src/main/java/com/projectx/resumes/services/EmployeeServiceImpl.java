@@ -10,7 +10,7 @@ import com.projectx.companies.services.CompanyService;
 import com.projectx.resumes.entities.EmployeeDetails;
 import com.projectx.resumes.payloads.*;
 import com.projectx.resumes.repositories.EmployeeRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

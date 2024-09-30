@@ -1,7 +1,7 @@
 package com.projectx.incomes.repositories;
 
 import com.projectx.incomes.entities.IncomeDetails;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

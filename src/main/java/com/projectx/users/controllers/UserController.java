@@ -9,7 +9,7 @@ import com.projectx.common.payloads.ResponseDto;
 import com.projectx.users.entities.UserProfileDetails;
 import com.projectx.users.payloads.*;
 import com.projectx.users.services.UserService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

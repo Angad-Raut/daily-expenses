@@ -10,7 +10,7 @@ import com.projectx.resumes.payloads.ProjectPageResponseDto;
 import com.projectx.resumes.payloads.TechDto;
 import com.projectx.resumes.payloads.TechnologyListDto;
 import com.projectx.resumes.services.ProjectService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -13,7 +13,7 @@ import com.projectx.incomes.payloads.ViewIncomesDto;
 import com.projectx.incomes.entities.IncomeDetails;
 import com.projectx.incomes.entities.SalaryDetails;
 import com.projectx.incomes.repositories.IncomeRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

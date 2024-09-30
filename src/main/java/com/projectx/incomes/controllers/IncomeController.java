@@ -7,12 +7,12 @@ import com.projectx.common.payloads.*;
 import com.projectx.incomes.payloads.IncomeDto;
 import com.projectx.incomes.payloads.PaginitionResponseDto;
 import com.projectx.incomes.services.IncomeService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
 

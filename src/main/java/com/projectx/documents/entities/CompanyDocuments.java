@@ -1,12 +1,12 @@
 package com.projectx.documents.entities;
 
 import com.projectx.companies.entities.CompanyDetails;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 @Data
 @AllArgsConstructor

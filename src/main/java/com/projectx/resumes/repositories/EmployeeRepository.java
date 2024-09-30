@@ -1,7 +1,7 @@
 package com.projectx.resumes.repositories;
 
 import com.projectx.resumes.entities.EmployeeDetails;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

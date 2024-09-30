@@ -1,7 +1,7 @@
 package com.projectx.loans.repository;
 
 import com.projectx.loans.entities.LoanDetails;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

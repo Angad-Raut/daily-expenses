@@ -5,7 +5,7 @@ import com.projectx.common.exceptions.ResourceNotFoundException;
 import com.projectx.common.payloads.*;
 import com.projectx.loans.payloads.*;
 import com.projectx.loans.services.LoanService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

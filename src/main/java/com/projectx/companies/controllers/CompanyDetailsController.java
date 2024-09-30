@@ -8,13 +8,13 @@ import com.projectx.companies.payloads.CompanyDto;
 import com.projectx.companies.payloads.CompanyPageResponseDto;
 import com.projectx.companies.payloads.EditCompanyDto;
 import com.projectx.companies.services.CompanyService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;

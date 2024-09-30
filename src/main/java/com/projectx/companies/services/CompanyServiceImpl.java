@@ -14,11 +14,11 @@ import com.projectx.companies.payloads.EditCompanyDto;
 import com.projectx.companies.payloads.ViewCompanyDto;
 import com.projectx.companies.entities.CompanyDetails;
 import com.projectx.companies.repositories.CompanyRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;

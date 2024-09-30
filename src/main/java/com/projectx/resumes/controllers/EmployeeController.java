@@ -11,7 +11,7 @@ import com.projectx.resumes.payloads.EmployeeDto;
 import com.projectx.resumes.payloads.EmployeePageResponseDto;
 import com.projectx.resumes.payloads.ViewEmployeeCompanyDto;
 import com.projectx.resumes.services.EmployeeService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

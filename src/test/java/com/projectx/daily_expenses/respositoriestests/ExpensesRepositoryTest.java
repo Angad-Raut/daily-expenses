@@ -15,8 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -96,8 +98,8 @@ public class ExpensesRepositoryTest {
         List<Object[]> fetchList = expensesRepository.getExpenseItemsByExpenseId(details.getId());
         Object[] first = fetchList.get(0);
         Object[] second = fetchList.get(1);
-        ExpenseItems item = items.stream().toList().get(0);
-        ExpenseItems item1 = items.stream().toList().get(1);
+        ExpenseItems item = new ArrayList<>(items).get(0);
+        ExpenseItems item1 = new ArrayList<>(items).get(1);
         assertEquals(first[0]!=null?first[0].toString():"-",item.getItemName()!=null?item.getItemName():"-");
         assertEquals(first[1]!=null?Double.parseDouble(first[1].toString()):0.0,item.getItemPrice()!=null?item.getItemPrice():0.0);
         assertEquals(first[2]!=null?first[2].toString():"-",item.getPaymentType()!=null?item.getPaymentType():"-");

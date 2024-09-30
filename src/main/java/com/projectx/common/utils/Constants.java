@@ -48,6 +48,9 @@ public final class Constants {
     public static final String OTHER_TYPE="OTHER";
     public static final String ISO_DATE_FORMAT="yyyy-MM-dd'T'HH:mm:ssZ";
     public static final String VIEW_DATE_FORMAT="dd MMMM yyyy";
+    public static final String PAYTM="PayTM";
+    public static final String PHONE_PAY="Phone Pay";
+    public static final String GOOGLE_PAY="Google Pay";
     public static final String toExpenseDate(Date expenseDate) {
         SimpleDateFormat format = new SimpleDateFormat(VIEW_DATE_FORMAT);
         return format.format(expenseDate);

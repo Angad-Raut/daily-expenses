@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class ExternalExpenseServiceImpl implements ExternalExpenseService {
@@ -125,7 +126,7 @@ public class ExternalExpenseServiceImpl implements ExternalExpenseService {
                         .description(data.getDescription()!=null?data.getDescription():Constants.DASH)
                         .amount(data.getAmount()!=null?Constants.toINRFormat(data.getAmount()):Constants.DASH)
                         .amountGivenDate(data.getAmountGivenDate()!=null?Constants.toExpenseDate(data.getAmountGivenDate()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !documentList.isEmpty()? ExternalExpensePageResponseDto.builder()
                 .pageNo(externalExpenseDetails.getNumber())

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class EmployeeServiceImpl implements EmployeeService {
@@ -156,7 +157,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         .employeeMobile(data.getEmployeeMobile()!=null?data.getEmployeeMobile():null)
                         .employeeEmail(data.getEmployeeEmail()!=null?data.getEmployeeEmail():Constants.DASH)
                         .totalExperience(data.getTotalExperience()!=null?data.getTotalExperience():Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !employeeList.isEmpty()? EmployeePageResponseDto.builder()
                 .pageNo(employeeDetails.getNumber())
@@ -238,7 +239,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(data -> EntityIdAndValueDto.builder()
                         .entityId(data[0]!=null?Long.parseLong(data[0].toString()):null)
                         .entityValue(data[1]!=null?data[1].toString():Constants.DASH)
-                        .build()).toList():new ArrayList<>();
+                        .build()).collect(Collectors.toList()):new ArrayList<>();
     }
 
     @Override
@@ -249,7 +250,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         .entityId(data)
                         .entityValue(companyService.getCompanyName(data))
                         .build())
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
     }
 
     private void isMobileExists(Long mobile) {

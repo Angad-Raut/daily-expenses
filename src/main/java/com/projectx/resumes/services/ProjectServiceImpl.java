@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class ProjectServiceImpl implements ProjectService{
@@ -162,7 +163,7 @@ public class ProjectServiceImpl implements ProjectService{
                         .companyName(data.getCompanyId()!=null?companyService.getCompanyName(data.getCompanyId()):Constants.DASH)
                         .teamSize(data.getTeamSize()!=null?data.getTeamSize():0)
                         .jobTitle(data.getJobTitle()!=null?data.getJobTitle():Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !projectList.isEmpty()? ProjectPageResponseDto.builder()
                 .pageNo(projectDetails.getNumber())
@@ -182,7 +183,7 @@ public class ProjectServiceImpl implements ProjectService{
                         .srNo(index.incrementAndGet())
                         .techName(data)
                         .build())
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
     }
 
     @Transactional

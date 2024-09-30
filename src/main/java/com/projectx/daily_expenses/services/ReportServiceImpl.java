@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class ReportServiceImpl implements ReportService {
@@ -38,7 +39,7 @@ public class ReportServiceImpl implements ReportService {
         List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(startDate,endDate);
         List<ViewReportDto> reportDataList = fetchList!=null && !fetchList.isEmpty()?fetchList.stream()
                 .map(data -> setExpenseData(data,index))
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
         if (reportDataList!=null && !reportDataList.isEmpty()) {
             return ReportGenerator.generateReport(reportDataList, dto.getStartDate(), dto.getEndDate());
         } else {
@@ -68,7 +69,7 @@ public class ReportServiceImpl implements ReportService {
                                     .itemPrice(item.getItemPrice()!=null?Constants.toINRFormat(item.getItemPrice()):Constants.DASH)
                                     .paymentWith(item.getPaymentType())
                                     .build())
-                            .toList())
+                            .collect(Collectors.toList()))
                     .build();
             if (reportDto!=null) {
                 byte[] data = ReportGenerator.generateReportByExpenseId(reportDto);
@@ -92,7 +93,7 @@ public class ReportServiceImpl implements ReportService {
         List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(startDate,endDate);
         return fetchList!=null && !fetchList.isEmpty()?fetchList.stream()
                 .map(data -> setExpenseData(data,index))
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
 
     }
 
@@ -109,7 +110,7 @@ public class ReportServiceImpl implements ReportService {
         List<ExpensesDetails> fetchList = expensesRepository.getAllExpensesWithDates(fromDate,toDate);
         List<ViewReportDto> reportDataList = fetchList!=null && !fetchList.isEmpty()?fetchList.stream()
                 .map(result -> setExpenseData(result,index))
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
         return reportDataList;
     }
 
@@ -140,7 +141,7 @@ public class ReportServiceImpl implements ReportService {
                                 .itemPrice(item.getItemPrice()!=null?Constants.toINRFormat(item.getItemPrice()):Constants.DASH)
                                 .paymentWith(item.getPaymentType())
                                 .build())
-                        .toList())
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

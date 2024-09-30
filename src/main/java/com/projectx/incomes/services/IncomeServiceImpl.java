@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class IncomeServiceImpl implements IncomeService {
@@ -134,7 +135,7 @@ public class IncomeServiceImpl implements IncomeService {
                         .incomeType(data.getIncomeType().equals(Constants.SALARY_TYPE)?"Salary":"Other")
                         .incomeAmount(Constants.toINRFormat(data.getIncomeAmount()))
                         .incomeDate(Constants.toExpenseDate(data.getIncomeDate()))
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !incomesList.isEmpty()?PaginitionResponseDto.builder()
                 .pageNo(incomes.getNumber())

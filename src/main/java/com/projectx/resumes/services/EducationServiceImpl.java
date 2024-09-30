@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class EducationServiceImpl implements EducationService {
@@ -150,7 +151,7 @@ public class EducationServiceImpl implements EducationService {
                         .percentage(data.getPercentage()!=null?data.getPercentage():Constants.DASH)
                         .startDate(data.getStartDate()!=null?Constants.toExpenseDate(data.getStartDate()): Constants.DASH)
                         .endDate(data.getEndDate()!=null?Constants.toExpenseDate(data.getEndDate()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !educationList.isEmpty()? EducationPageResponseDto.builder()
                 .pageNo(educationDetails.getNumber())

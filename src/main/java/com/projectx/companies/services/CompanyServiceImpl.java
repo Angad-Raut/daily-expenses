@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class CompanyServiceImpl implements CompanyService {
@@ -145,7 +146,7 @@ public class CompanyServiceImpl implements CompanyService {
                         .companyName(data.getCompanyName()!=null?data.getCompanyName():Constants.DASH)
                         .startDate(data.getStartDate()!=null?Constants.toExpenseDate(data.getStartDate()):Constants.DASH)
                         .endDate(data.getEndDate()!=null?Constants.toExpenseDate(data.getEndDate()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !companiesList.isEmpty()?CompanyPageResponseDto.builder()
                 .pageNo(companies.getNumber())
@@ -179,7 +180,7 @@ public class CompanyServiceImpl implements CompanyService {
                         .entityId(data[0]!=null?Long.parseLong(data[0].toString()):null)
                         .entityValue(data[1]!=null?data[1].toString():null)
                         .build())
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
     }
 
     @Override

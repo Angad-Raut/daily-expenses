@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class CompanyDocumentServiceImpl implements CompanyDocumentService {
@@ -94,7 +95,7 @@ public class CompanyDocumentServiceImpl implements CompanyDocumentService {
                         .documentType(data.getDocumentType()!=null?setDocumentType(data.getDocumentType()):Constants.DASH)
                         .uploadedDate(data.getUploadedDate()!=null?Constants.toExpenseDate(data.getUploadedDate()):Constants.DASH)
                         .contentType(data.getContentType()!=null?data.getContentType():Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !documentList.isEmpty()?CompanyDocumentPageResponseDto.builder()
                 .pageNo(documents.getNumber())

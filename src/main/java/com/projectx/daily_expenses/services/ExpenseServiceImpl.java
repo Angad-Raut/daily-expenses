@@ -199,7 +199,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .expenseId(data.getId())
                         .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
                         .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
                 .pageNo(expenses.getNumber())
@@ -235,7 +235,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .expenseId(data.getId())
                         .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
                         .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
                 .pageNo(expenses.getNumber())
@@ -278,7 +278,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .expenseId(result.getId())
                         .expenseDate(Constants.toExpenseDate(result.getInsertedTime()))
                         .totalAmount(result.getTotalAmount()!=null?Constants.toINRFormat(result.getTotalAmount()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
                 .pageNo(expenses.getNumber())
@@ -317,7 +317,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                         .expenseId(data.getId())
                         .expenseDate(Constants.toExpenseDate(data.getInsertedTime()))
                         .totalAmount(data.getTotalAmount()!=null?Constants.toINRFormat(data.getTotalAmount()):Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !expensesList.isEmpty()?PageResponseDto.builder()
                 .pageNo(expenses.getNumber())

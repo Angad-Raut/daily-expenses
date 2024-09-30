@@ -129,7 +129,7 @@ public class TechnoStackServiceImpl implements TechnoStackService{
                                 && data.getEmployeeDetails().getEmployeeName()!=null
                                 ?data.getEmployeeDetails().getEmployeeName():Constants.DASH)
                         .updatedDate(data.getUpdatedTime()!=null?Constants.toExpenseDate(data.getUpdatedTime()): Constants.DASH)
-                        .build()).toList()
+                        .build()).collect(Collectors.toList())
                 :new ArrayList<>();
         return !stackList.isEmpty()? SkillsPageResponseDto.builder()
                 .pageNo(technoStackDetails.getNumber())
@@ -150,7 +150,7 @@ public class TechnoStackServiceImpl implements TechnoStackService{
                         .skillName(data[0]!=null?data[0].toString():Constants.DASH)
                         .experience(data[1]!=null?data[1].toString():Constants.DASH)
                         .build())
-                .toList():new ArrayList<>();
+                .collect(Collectors.toList()):new ArrayList<>();
     }
 
     private Set<StackItems> toList(Set<SkillDto> skillList) {

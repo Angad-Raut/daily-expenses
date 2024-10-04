@@ -51,6 +51,16 @@ public class LoanController {
         }
     }
 
+    @PostMapping(value = "/getEMIById")
+    public ResponseEntity<ResponseDto<EMIDto>> getEMIById(@Valid @RequestBody EntityIdDto dto) {
+        try {
+            EMIDto data = loanService.getEMIById(dto);
+            return new ResponseEntity<>(new ResponseDto<>(data,null,null),HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new ResponseDto<>(null,e.getMessage(),null), HttpStatus.OK);
+        }
+    }
+
     @PostMapping(value = "/updateLoanStatus")
     public ResponseEntity<ResponseDto<Boolean>> updateLoanStatus(@Valid @RequestBody EntityIdDto dto) {
         try {

@@ -12,6 +12,7 @@ public interface LoanService {
     Boolean insertOrUpdate(LoanDto dto) throws ResourceNotFoundException, AlreadyExistsException, ParseException;
     Boolean addLoanEMI(EMIDto dto)throws ResourceNotFoundException, AlreadyExistsException;
     LoanDto getById(EntityIdDto dto)throws ResourceNotFoundException;
+    EMIDto getEMIById(EntityIdDto dto)throws ResourceNotFoundException;
     List<EntityTypeAndValueDto> getLoanTypes();
     List<EntityNameAndValueDto> getPaymentModes();
     Boolean updateStatus(EntityIdDto dto)throws ResourceNotFoundException;

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ViewEMIsDto {
     private Integer srNo;
+    private Long loanId;
     private Long emiId;
     private String emiAmount;
     private String emiDate;

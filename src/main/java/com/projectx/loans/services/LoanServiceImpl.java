@@ -154,6 +154,24 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public EMIDto getEMIById(EntityIdDto dto) throws ResourceNotFoundException {
+        try {
+            EMIDetails details = emiDetailsRepository.getById(dto.getEntityId());
+            if (details==null) {
+                throw new ResourceNotFoundException(LoanUtils.LOAN_EMI_DETAILS_NOT_FOUND);
+            }
+            return EMIDto.builder()
+                    .emiId(details.getId())
+                    .loanId(details.getLoanDetails().getId())
+                    .emiAmount(details.getEmiAmount()!=null?details.getEmiAmount():null)
+                    .paymentMode(details.getPaymentMode()!=null?details.getPaymentMode():null)
+                    .build();
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
+    @Override
     public List<EntityTypeAndValueDto> getLoanTypes() {
         List<EntityTypeAndValueDto> responseList = new ArrayList<>();
         responseList.add(new EntityTypeAndValueDto(LoanUtils.PERSONAL_LOAN_TYPE,LoanUtils.PERSONAL_LOAN));
@@ -281,6 +299,7 @@ public class LoanServiceImpl implements LoanService {
         List<ViewEMIsDto> emiList = !listOfEMIS.isEmpty()?listOfEMIS.stream()
                 .map(data -> ViewEMIsDto.builder()
                         .srNo(index.incrementAndGet())
+                        .loanId(data.getLoanDetails().getId())
                         .emiId(data.getId())
                         .emiAmount(data.getEmiAmount()!=null?Constants.toINRFormat(data.getEmiAmount()):Constants.DASH)
                         .emiDate(data.getEmiDate()!=null?Constants.toExpenseDate(data.getEmiDate()):Constants.DASH)

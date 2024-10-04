@@ -15,6 +15,8 @@ public interface EMIDetailsRepository extends JpaRepository<EMIDetails,Long> {
 
     @Query(value = "select * from emi_details where id=:emiId and loan_id=:loanId",nativeQuery = true)
     EMIDetails getByEMIIdAndLoanId(@Param("emiId")Long emiId,@Param("loanId")Long loanId);
+    @Query(value = "select * from emi_details where id=:emiId",nativeQuery = true)
+    EMIDetails getByEMIId(@Param("emiId")Long emiId);
     @Query(value = "select * from emi_details where loan_id=:loanId",nativeQuery = true)
     Page<EMIDetails> getAllEMIByLoanId(@Param("loanId")Long loanId, Pageable pageable);
     @Query(value = "select count(*) from emi_details "

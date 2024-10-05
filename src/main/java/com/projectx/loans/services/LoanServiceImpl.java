@@ -186,6 +186,7 @@ public class LoanServiceImpl implements LoanService {
         responseList.add(new EntityNameAndValueDto(Constants.PAYTM,Constants.PAYTM));
         responseList.add(new EntityNameAndValueDto(Constants.PHONE_PAY,Constants.PHONE_PAY));
         responseList.add(new EntityNameAndValueDto(Constants.GOOGLE_PAY,Constants.GOOGLE_PAY));
+        responseList.add(new EntityNameAndValueDto(Constants.AUTO_DEBITED,Constants.AUTO_DEBITED));
         return responseList;
     }
 

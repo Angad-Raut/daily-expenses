@@ -51,6 +51,7 @@ public final class Constants {
     public static final String PAYTM="PayTM";
     public static final String PHONE_PAY="Phone Pay";
     public static final String GOOGLE_PAY="Google Pay";
+    public static final String AUTO_DEBITED="Auto Debited";
     public static final String toExpenseDate(Date expenseDate) {
         SimpleDateFormat format = new SimpleDateFormat(VIEW_DATE_FORMAT);
         return format.format(expenseDate);

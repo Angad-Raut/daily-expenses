@@ -90,7 +90,8 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional
     @Override
-    public Boolean addLoanEMI(EMIDto dto) throws ResourceNotFoundException, AlreadyExistsException {
+    public Boolean addLoanEMI(EMIDto dto) throws ResourceNotFoundException,
+            AlreadyExistsException {
         try {
              LoanDetails loanDetails = loanRepository.getById(dto.getLoanId());
              if (loanDetails==null){
@@ -103,7 +104,7 @@ public class LoanServiceImpl implements LoanService {
                     EMIDetails emiDetails = EMIDetails.builder()
                             .emiAmount(dto.getEmiAmount())
                             .paymentMode(dto.getPaymentMode())
-                            .emiDate(new Date())
+                            .emiDate(dto.getEmiDate()!=null?Constants.getISODate(dto.getEmiDate()):new Date())
                             .loanDetails(loanDetails)
                             .build();
                     updateRemainingAmount(loanDetails.getId(),dto.getEmiAmount());
@@ -128,7 +129,7 @@ public class LoanServiceImpl implements LoanService {
             return loanDetails.getEmiDetails()!=null && !loanDetails.getEmiDetails().isEmpty() && loanRepository.save(loanDetails)!=null?true:false;
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | ParseException e) {
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -165,6 +166,7 @@ public class LoanServiceImpl implements LoanService {
                     .loanId(details.getLoanDetails().getId())
                     .emiAmount(details.getEmiAmount()!=null?details.getEmiAmount():null)
                     .paymentMode(details.getPaymentMode()!=null?details.getPaymentMode():null)
+                    .emiDate(details.getEmiDate()!=null?Constants.toExpenseDate(details.getEmiDate()):null)
                     .build();
         } catch (ResourceNotFoundException e) {
             throw new ResourceNotFoundException(e.getMessage());

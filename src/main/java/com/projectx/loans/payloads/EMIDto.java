@@ -14,4 +14,5 @@ public class EMIDto {
     private Long emiId;
     private Double emiAmount;
     private String paymentMode;
+    private String emiDate;
 }
